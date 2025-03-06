@@ -30,5 +30,13 @@
     <h1>Bem-vindo ao meu site simples</h1>
     <!--criando o botao que mudara a cor de fundo-->
     <button onclick="mudarCor()">Mudar Cor de Fundo</button> 
+    <script>
+        //Funcão JavaScript para mudar a cor de fundo da pagina
+        function mudarCor(){
+            //gerar uma cor aleatória em fprmato hexadecimal 
+            var corAleatoria = '#' + Math.floor (math.random()*16777215).toString(16)
+            document.body.style.background = corAleatoria;
+        }
+    </script>
 </body>
 </html>
