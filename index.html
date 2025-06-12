@@ -1,125 +1,229 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Carta Espacial 💌</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      height: 100vh;
-      background: radial-gradient(ellipse at bottom, #08172d 0%, #000000 100%);
-      overflow: hidden;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      position: relative;
-      color: white;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Carta especial para meu amor💌</title>
+<style>
+  /* Reset básico */
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+  }
+  body, html {
+    height: 100%;
+    background: radial-gradient(ellipse at bottom, #001232 0%, #0b1440 60%, #000010 100%);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #eee;
+    overflow: hidden;
+    position: relative;
+  }
 
-    .stars, .stars2 {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      background: transparent url('https://i.imgur.com/9jR2l8c.png') repeat;
-      animation: twinkle 20s linear infinite;
-      z-index: 0;
-    }
-    .stars2 {
-      opacity: 0.3;
-      background-size: 50px;
-      animation-duration: 40s;
-    }
+  /* Estrelas */
+  .stars, .stars2, .stars3 {
+    position: absolute;
+    width: 100%; height: 100%;
+    top: 0; left: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .stars {
+    background: transparent url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="2" height="2"><circle cx="1" cy="1" r="1" fill="white" opacity="0.8"/></svg>') repeat;
+    background-size: 10px 10px;
+    animation: twinkle 8s linear infinite;
+    opacity: 0.8;
+  }
+  .stars2 {
+    background: transparent url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="3" height="3"><circle cx="1.5" cy="1.5" r="1.5" fill="white" opacity="0.6"/></svg>') repeat;
+    background-size: 20px 20px;
+    animation: twinkle 12s linear infinite;
+    opacity: 0.5;
+  }
+  .stars3 {
+    background: transparent url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="4" height="4"><circle cx="2" cy="2" r="2" fill="white" opacity="0.4"/></svg>') repeat;
+    background-size: 40px 40px;
+    animation: twinkle 18s linear infinite;
+    opacity: 0.3;
+  }
+  @keyframes twinkle {
+    0%, 100% {opacity: 0.8;}
+    50% {opacity: 0.3;}
+  }
 
-    @keyframes twinkle {
-      0%, 100% {opacity: 0.8;}
-      50% {opacity: 0.2;}
-    }
+  /* Lua */
+  .moon {
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(circle at 25% 25%, #f5f3f1, #bbbfc5);
+    border-radius: 50%;
+    box-shadow: 0 0 15px 5px #f0f0f0aa inset;
+    filter: drop-shadow(0 0 8px #d9d9e3);
+    z-index: 5;
+  }
+  .moon::before {
+    content: "";
+    position: absolute;
+    top: 25px;
+    left: 20px;
+    width: 30px;
+    height: 30px;
+    background: #9b9fa8;
+    border-radius: 50%;
+    opacity: 0.4;
+    filter: blur(1.5px);
+  }
 
-    .moon, .saturn {
-      position: absolute;
-      z-index: 1;
-      width: 100px;
-      opacity: 0.9;
-    }
+  /* Saturno */
+  .saturn {
+    position: absolute;
+    top: 15%;
+    right: 10%;
+    width: 110px;
+    height: 110px;
+    background: radial-gradient(circle at center, #f4e3a3 40%, #bb9f3f 80%);
+    border-radius: 50%;
+    box-shadow: 0 0 12px 3px #d4c47f inset;
+    filter: drop-shadow(0 0 12px #ffeaa055);
+    z-index: 5;
+  }
+  .saturn::before {
+    content: "";
+    position: absolute;
+    top: 45%;
+    left: -40%;
+    width: 200%;
+    height: 25%;
+    background: linear-gradient(90deg, transparent 20%, #cbb355 50%, transparent 80%);
+    border-radius: 50% / 100%;
+    filter: drop-shadow(0 0 4px #cbb35588);
+  }
 
-    .moon {
-      top: 30px;
-      left: 30px;
-    }
+  /* Container central */
+  .container {
+    position: relative;
+    width: 320px;
+    height: 420px;
+    perspective: 1500px;
+    margin: auto;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
 
-    .saturn {
-      bottom: 30px;
-      right: 30px;
-    }
+  /* Imagem astronauta */
+  .character {
+    width: 120px;
+    filter: drop-shadow(0 0 5px #9ae6ff);
+    animation: floaty 6s ease-in-out infinite alternate;
+  }
+  @keyframes floaty {
+    0% { transform: translateY(0) translateX(0) rotate(0deg); }
+    50% { transform: translateY(-15px) translateX(10px) rotate(5deg);}
+    100% { transform: translateY(0) translateX(0) rotate(0deg);}
+  }
 
-    .container {
-      position: relative;
-      z-index: 2;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+  /* Carta interna com 3D */
+  .letter-inner {
+    width: 100%;
+    height: 100%;
+    border-radius: 25px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 1s ease;
+    cursor: pointer;
+    box-shadow: 0 0 40px 10px #ff4c4caa;
+  }
 
-    .card {
-      background: linear-gradient(135deg, #ffffffdd, #e0e0ffcc);
-      border-radius: 20px;
-      padding: 2rem;
-      max-width: 360px;
-      text-align: center;
-      color: #333;
-      box-shadow: 0 0 30px #44f5ff88;
-      transition: transform 0.8s;
-    }
+  /* Carta fechada e aberta */
+  .letter-front, .letter-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 25px;
+    backface-visibility: hidden;
+    overflow: hidden;
+  }
+  .letter-front {
+    background: linear-gradient(135deg, #ff4c4c 0%, #ff8a8a 100%);
+    color: white;
+    font-weight: 700;
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 25px 8px #ff4c4caa;
+    user-select: none;
+  }
+  .letter-front:hover {
+    box-shadow: 0 0 45px 14px #ff2222cc;
+  }
+  .letter-back {
+    background: linear-gradient(135deg, #fff0f0 0%, #ffd1d1 100%);
+    color: #900000;
+    padding: 2rem;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    border: 2px solid #ff4c4c;
+    transform: rotateY(180deg);
+    box-shadow: 0 0 20px 8px #ff4c4caa;
+    overflow-y: auto;
+  }
 
-    .card h2 {
-      margin-bottom: 1rem;
-    }
+  /* Carta virada */
+  .container.flipped .letter-inner {
+    transform: rotateY(180deg);
+  }
 
-    .open-btn {
-      position: absolute;
-      bottom: 50px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #44f5ff;
-      color: #000;
-      padding: 0.8rem 1.5rem;
-      border: none;
-      border-radius: 30px;
-      font-size: 1rem;
-      cursor: pointer;
-      box-shadow: 0 0 10px #44f5ff;
-      transition: background 0.3s ease;
-      z-index: 3;
-    }
-
-    .open-btn:hover {
-      background: #2bc9d7;
-    }
-
-    .card.hidden {
-      display: none;
-    }
-  </style>
+  /* Botão fechar */
+  .close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: #ff4c4c;
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    font-size: 1.4rem;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 0 15px #ff4c4ccc;
+    transition: background-color 0.3s ease;
+    z-index: 20;
+  }
+  .close-btn:hover {
+    background-color: #ff2222;
+  }
+  .close-btn::after {
+    content: "";
+    position: absolute;
+    top: -6px; left: -6px; right: -6px; bottom: -6px;
+    border-radius: 50%;
+    box-shadow: 0 0 8px 3px #ff4c4ccc;
+    opacity: 0.7;
+    animation: pulse 2.5s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+  }
+</style>
 </head>
 <body>
+
   <div class="stars"></div>
   <div class="stars2"></div>
-  <img src="https://i.imgur.com/xXjUAbf.png" class="moon" alt="Lua">
-  <img src="https://i.imgur.com/FN66B5F.png" class="saturn" alt="Saturno">
+  <div class="stars3"></div>
 
-  <div class="container">
-    <div class="card hidden" id="card">
-      <h2>Para cachinhos 💙</h2>
-      <p>.</p>
-    </div>
-  </div>
+  <div class="moon"></div>
+  <div class="saturn"></div>
 
-  <button class="open-btn" onclick="document.getElementById('card').classList.remove('hidden'); this.style.display='none'">Abrir Carta 💌</button>
-</body>
-</html>
+  <div class="container" id="container">
+
+    <img src="https://i.imgur.com/wPtMCJb.png" alt="Gumball Astronauta" class="character"
