@@ -21,20 +21,12 @@
       overflow: hidden;
     }
 
-    .top-image {
-      width: 100%;
-      max-height: 300px;
-      object-fit: cover;
-      border-bottom: 5px solid #ff8abf;
-      box-shadow: 0 4px 12px #ffaad5;
-    }
-
     .container {
       display: flex;
       flex-direction: column;
       align-items: center;
       padding: 1rem;
-      margin-top: 1rem;
+      margin-top: 2rem;
     }
 
     .letter-container {
@@ -76,6 +68,9 @@
       color: white;
       font-size: 1.4rem;
       text-align: center;
+      background-image: url('IMG_20250612_200212.jpg');
+      background-size: cover;
+      background-position: center;
     }
 
     .letter-back {
@@ -109,12 +104,12 @@
 
     .sparkle {
       position: absolute;
-      width: 30px;
-      height: 30px;
+      width: 20px;
+      height: 20px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,105,180,0.9) 0%, rgba(255,105,180,0) 80%);
+      background: radial-gradient(circle, rgba(255,105,180,0.9) 0%, rgba(255,105,180,0) 70%);
       pointer-events: none;
-      animation: fadeOut 1s forwards;
+      animation: fadeOut 2s forwards;
     }
 
     @keyframes fadeOut {
@@ -125,14 +120,10 @@
 </head>
 <body>
 
-  <!-- Imagem no topo -->
-  <img src="IMG_20250612_200212.jpg" alt="Imagem especial" class="top-image" />
-
-  <!-- Conteúdo -->
   <div class="container">
     <div class="letter-container" id="letter">
       <div class="letter-inner">
-        <div class="letter-front">Clique para abrir 💌</div>
+        <div class="letter-front"></div>
         <div class="letter-back">
           <p>Seus olhos são como constelações, guiando meu coração na escuridão.</p>
           <p>No silêncio do universo, seu olhar é o som mais bonito.</p>
@@ -141,8 +132,8 @@
           <p>Te olhar é como viajar pelas galáxias — mágico e infinito.</p>
           <p>Com você, tudo é mais bonito, mais leve, mais eterno.</p>
           <p>Meu amor por você é tão vasto quanto o próprio universo. ✨</p>
-          <p>Eu te amo cachinhos 🫶🏻❤️<p>
-           <button class="close-btn" id="closeBtn">Fechar</button>
+          <p>Eu te amo cachinhos 🫶🏻❤️</p>
+          <button class="close-btn" id="closeBtn">Fechar</button>
         </div>
       </div>
     </div>
@@ -164,14 +155,26 @@
       letter.classList.remove("flipped");
     });
 
-    // Brilho rosa ao tocar
+    // Linha de brilho seguindo o dedo enquanto pressionado
+    let drawing = false;
+
+    document.body.addEventListener("pointerdown", () => {
+      drawing = true;
+    });
+
+    document.body.addEventListener("pointerup", () => {
+      drawing = false;
+    });
+
     document.body.addEventListener("pointermove", (e) => {
+      if (!drawing) return;
+
       const sparkle = document.createElement("div");
       sparkle.classList.add("sparkle");
-      sparkle.style.left = `${e.clientX - 15}px`;
-      sparkle.style.top = `${e.clientY - 15}px`;
+      sparkle.style.left = `${e.clientX - 10}px`;
+      sparkle.style.top = `${e.clientY - 10}px`;
       document.body.appendChild(sparkle);
-      setTimeout(() => sparkle.remove(), 1000);
+      setTimeout(() => sparkle.remove(), 2000);
     });
   </script>
 </body>
