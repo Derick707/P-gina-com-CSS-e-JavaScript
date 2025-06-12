@@ -14,20 +14,10 @@
       background: url('Screenshot_2025-06-12-20-03-58-170_com.miui.gallery.jpg') no-repeat center center;
       background-size: cover;
       font-family: 'Segoe UI', sans-serif;
-      color: #fff;
-      position: relative;
-    }
-
-    .container {
       display: flex;
-      flex-direction: column;
-      align-items: center;
       justify-content: center;
-      min-height: 100vh;
-      gap: 2rem;
-      position: relative;
-      z-index: 2;
-      padding: 1rem;
+      align-items: center;
+      color: #fff;
     }
 
     .letter-container {
@@ -101,42 +91,37 @@
       background: #ff3366;
     }
 
-    .stars {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      background: transparent url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="3" height="3"><circle cx="1.5" cy="1.5" r="1.5" fill="white" /></svg>') repeat;
-      background-size: 10px 10px;
-      animation: twinkle 8s linear infinite;
-      opacity: 0.3;
-      z-index: 0;
-      pointer-events: none;
-    }
+    @media (max-width: 400px) {
+      .letter-container {
+        width: 90vw;
+        height: auto;
+        max-height: 90vh;
+      }
 
-    @keyframes twinkle {
-      0%, 100% { opacity: 0.3; }
-      50% { opacity: 0.8; }
+      .letter-back {
+        font-size: 0.95rem;
+        padding: 1.5rem;
+      }
+
+      .letter-front {
+        font-size: 1.2rem;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="stars"></div>
-
-  <div class="container">
-    <div class="letter-container" id="letter">
-      <div class="letter-inner">
-        <div class="letter-front">Clique para abrir 💌</div>
-        <div class="letter-back">
-          <p>Seus olhos são como constelações, guiando meu coração na escuridão.</p>
-          <p>No silêncio do universo, seu olhar é o som mais bonito.</p>
-          <p>Você é o céu onde minha alma encontra paz.</p>
-          <p>Entre estrelas e planetas, nenhum brilha como você.</p>
-          <p>Te olhar é como viajar pelas galáxias — mágico e infinito.</p>
-          <p>Com você, tudo é mais bonito, mais leve, mais eterno.</p>
-          <p>Meu amor por você é tão vasto quanto o próprio universo. ✨</p>
-          <button class="close-btn" id="closeBtn">Fechar</button>
-        </div>
+  <div class="letter-container" id="letter">
+    <div class="letter-inner">
+      <div class="letter-front">Clique para abrir 💌</div>
+      <div class="letter-back">
+        <p>Seus olhos são como constelações, guiando meu coração na escuridão.</p>
+        <p>No silêncio do universo, seu olhar é o som mais bonito.</p>
+        <p>Você é o céu onde minha alma encontra paz.</p>
+        <p>Entre estrelas e planetas, nenhum brilha como você.</p>
+        <p>Te olhar é como viajar pelas galáxias — mágico e infinito.</p>
+        <p>Com você, tudo é mais bonito, mais leve, mais eterno.</p>
+        <p>Meu amor por você é tão vasto quanto o próprio universo. ✨</p>
+        <button class="close-btn" id="closeBtn">Fechar</button>
       </div>
     </div>
   </div>
