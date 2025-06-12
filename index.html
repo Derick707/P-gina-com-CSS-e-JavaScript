@@ -23,7 +23,7 @@
     .letter-container {
       perspective: 1200px;
       width: 360px;
-      height: 460px;
+      height: 500px;
       cursor: pointer;
     }
 
@@ -51,7 +51,6 @@
       align-items: center;
       justify-content: center;
       font-weight: bold;
-      user-select: none;
       padding: 1rem;
     }
 
@@ -67,11 +66,26 @@
       color: #880033;
       transform: rotateY(180deg);
       flex-direction: column;
-      padding: 2rem;
+      padding: 1.5rem;
       font-size: 1rem;
-      line-height: 1.5;
+      line-height: 1.4;
       text-align: center;
       overflow-y: auto;
+    }
+
+    .letter-back img {
+      width: 100%;
+      max-height: 180px;
+      object-fit: cover;
+      border-radius: 15px;
+      margin-bottom: 1rem;
+      box-shadow: 0 0 15px #ffaacc;
+      transition: transform 0.4s, box-shadow 0.4s;
+    }
+
+    .letter-back img:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 20px #ff66aa;
     }
 
     .close-btn {
@@ -100,11 +114,15 @@
 
       .letter-back {
         font-size: 0.95rem;
-        padding: 1.5rem;
+        padding: 1rem;
       }
 
       .letter-front {
         font-size: 1.2rem;
+      }
+
+      .letter-back img {
+        max-height: 150px;
       }
     }
   </style>
@@ -114,6 +132,7 @@
     <div class="letter-inner">
       <div class="letter-front">Clique para abrir 💌</div>
       <div class="letter-back">
+        <img src="IMG_20250612_200212.jpg" alt="Foto especial" />
         <p>Seus olhos são como constelações, guiando meu coração na escuridão.</p>
         <p>No silêncio do universo, seu olhar é o som mais bonito.</p>
         <p>Você é o céu onde minha alma encontra paz.</p>
