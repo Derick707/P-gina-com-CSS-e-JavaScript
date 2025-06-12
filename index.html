@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+<!DOCTYPE html><html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -9,154 +8,134 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-    }
+    }body {
+  min-height: 100vh;
+  background: url('9e868fe5fe7e8cb622b6a1ac23733f7d.jpg') no-repeat center center;
+  background-size: cover;
+  font-family: 'Segoe UI', sans-serif;
+  color: #fff;
+  overflow: hidden;
+  position: relative;
+}
 
-    body {
-      min-height: 100vh;
-      background: url('Screenshot_2025-06-12-20-03-58-170_com.miui.gallery.jpg') no-repeat center center;
-      background-size: cover;
-      font-family: 'Segoe UI', sans-serif;
-      color: #fff;
-      position: relative;
-      overflow: hidden;
-    }
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  height: 100vh;
+}
 
-    .container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 1rem;
-      margin-top: 2rem;
-    }
+.letter-container {
+  perspective: 1200px;
+  width: 90vw;
+  max-width: 380px;
+  height: 500px;
+  cursor: pointer;
+  transition: background 0.5s ease;
+}
 
-    .letter-container {
-      perspective: 1200px;
-      width: 90vw;
-      max-width: 380px;
-      height: 500px;
-      cursor: pointer;
-      position: relative;
-    }
+.letter-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 1s;
+  transform-style: preserve-3d;
+}
 
-    .letter-inner {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      transition: transform 1s;
-      transform-style: preserve-3d;
-    }
+.letter-container.flipped .letter-inner {
+  transform: rotateY(180deg);
+}
 
-    .letter-container.flipped .letter-inner {
-      transform: rotateY(180deg);
-    }
+.letter-front, .letter-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  backface-visibility: hidden;
+  box-shadow: 0 0 20px #ff8abf;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  padding: 1rem;
+}
 
-    .letter-front, .letter-back {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      border-radius: 20px;
-      backface-visibility: hidden;
-      box-shadow: 0 0 20px #ff8abf;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      padding: 1rem;
-      overflow: hidden;
-    }
+.letter-front {
+  background: linear-gradient(135deg, #ff6688, #ffa5d8);
+  color: white;
+  font-size: 1.4rem;
+  text-align: center;
+  position: relative;
+}
 
-    .letter-front {
-      background: #ff6688;
-      color: white;
-      font-size: 1.4rem;
-      text-align: center;
-      position: relative;
-      /* Nada de background image inteira */
-    }
+.letter-front img {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 10px white;
+}
 
-    /* Imagem no canto superior esquerdo da carta */
-    .letter-front::before {
-      content: "";
-      position: absolute;
-      top: 15px;
-      left: 15px;
-      width: 120px;
-      height: 120px;
-      border-radius: 15px;
-      background: url('IMG_20250612_200212.jpg') no-repeat center center;
-      background-size: cover;
-      box-shadow: 0 0 15px #ff7cb9;
-      z-index: 1;
-    }
+.letter-back {
+  background: #fff0f5;
+  color: #880033;
+  transform: rotateY(180deg);
+  flex-direction: column;
+  padding: 1.5rem;
+  font-size: 1rem;
+  line-height: 1.4;
+  text-align: center;
+  overflow-y: auto;
+}
 
-    .letter-front > span {
-      position: relative;
-      z-index: 2;
-      padding-left: 140px; /* para texto não ficar atrás da imagem */
-      user-select: none;
-    }
+.close-btn {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background: #ff6688;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1rem;
+  box-shadow: 0 0 10px #ffb3d1;
+  transition: background 0.3s;
+}
 
-    .letter-back {
-      background: #fff0f5;
-      color: #880033;
-      transform: rotateY(180deg);
-      flex-direction: column;
-      padding: 1.5rem;
-      font-size: 1rem;
-      line-height: 1.4;
-      text-align: center;
-      overflow-y: auto;
-    }
+.close-btn:hover {
+  background: #ff3366;
+}
 
-    .close-btn {
-      margin-top: 1rem;
-      padding: 0.5rem 1rem;
-      background: #ff6688;
-      color: white;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: 1rem;
-      box-shadow: 0 0 10px #ffb3d1;
-      transition: background 0.3s;
-    }
+.star {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: radial-gradient(circle, #fff 0%, #f0f 60%, transparent 100%);
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0.8;
+  animation: sparkle 2s forwards;
+}
 
-    .close-btn:hover {
-      background: #ff3366;
-    }
-
-    /* Purpurina brilhante */
-    .sparkle {
-      position: absolute;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,182,193,1) 0%, rgba(255,182,193,0) 70%);
-      pointer-events: none;
-      animation: sparkleFade 2s forwards;
-      filter: drop-shadow(0 0 4px #ffb6c1);
-      opacity: 0.8;
-    }
-
-    @keyframes sparkleFade {
-      0% {
-        opacity: 0.8;
-        transform: scale(1);
-      }
-      100% {
-        opacity: 0;
-        transform: scale(2);
-      }
-    }
+@keyframes sparkle {
+  from { opacity: 0.8; transform: scale(1); }
+  to { opacity: 0; transform: scale(2); }
+}
 
   </style>
 </head>
 <body>
-
   <div class="container">
     <div class="letter-container" id="letter">
       <div class="letter-inner">
-        <div class="letter-front"><span>Clique para abrir 💌</span></div>
+        <div class="letter-front">
+          Clique para abrir 💌
+          <img src="9e868fe5fe7e8cb622b6a1ac23733f7d.jpg" alt="Imagem linda">
+        </div>
         <div class="letter-back">
           <p>Seus olhos são como constelações, guiando meu coração na escuridão.</p>
           <p>No silêncio do universo, seu olhar é o som mais bonito.</p>
@@ -170,15 +149,17 @@
         </div>
       </div>
     </div>
-  </div>
+  </div><audio id="sound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_b6a446aa7d.mp3" preload="auto"></audio>
 
   <script>
     const letter = document.getElementById("letter");
     const closeBtn = document.getElementById("closeBtn");
+    const sound = document.getElementById("sound");
 
     letter.addEventListener("click", () => {
       if (!letter.classList.contains("flipped")) {
         letter.classList.add("flipped");
+        sound.play();
       }
     });
 
@@ -187,36 +168,33 @@
       letter.classList.remove("flipped");
     });
 
-    // Purpurina que aparece só onde o dedo toca e some em 2 segundos
     let drawing = false;
 
-    document.body.addEventListener("pointerdown", () => {
+    document.addEventListener("pointerdown", (e) => {
       drawing = true;
+      spawnStar(e);
     });
 
-    document.body.addEventListener("pointerup", () => {
+    document.addEventListener("pointerup", () => {
       drawing = false;
     });
 
-    document.body.addEventListener("pointermove", (e) => {
-      if (!drawing) return;
-
-      // Criar vários pontinhos purpurina para efeito mais legal
-      for (let i = 0; i < 3; i++) {
-        const sparkle = document.createElement("div");
-        sparkle.classList.add("sparkle");
-
-        // Pequena variação na posição para simular dispersão
-        const offsetX = (Math.random() - 0.5) * 20;
-        const offsetY = (Math.random() - 0.5) * 20;
-
-        sparkle.style.left = `${e.clientX + offsetX}px`;
-        sparkle.style.top = `${e.clientY + offsetY}px`;
-        document.body.appendChild(sparkle);
-
-        setTimeout(() => sparkle.remove(), 2000);
+    document.addEventListener("pointermove", (e) => {
+      if (drawing) {
+        spawnStar(e);
       }
     });
-  </script>
-</body>
+
+    function spawnStar(e) {
+      const star = document.createElement("div");
+      star.className = "star";
+      star.style.left = `${e.clientX}px`;
+      star.style.top = `${e.clientY}px`;
+      document.body.appendChild(star);
+      setTimeout(() => star.remove(), 2000);
+
+      // mudar cor da carta enquanto toca
+      document.getElementById("letter").style.background = `radial-gradient(circle at ${e.clientX}px ${e.clientY}px, #ffb6c1, transparent)`;
+    }
+  </script></body>
 </html>
