@@ -1,42 +1,67 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Site Simples</title>
-    <style>
-       /*definição do estilo da página*/
-       body {
-        font-family: Arial, sans-serif;/*definir a fonte do texto*/
-        text-align: center; /*centralizar o texto na pagina*/
-        margin: 50px; /*uma margem ao redor do conteudo*/
-        background-color: #f4f4f4; /*definir a cor de fundo padrão*/
-        }
-        /*esilizr o botão*/
-        button{
-            padding: 10px 20px; /*definir o tamanho do botão*/
-            font-size: 16px; /*definir o tamanho da fonte dp botão*/
-            cursor: pointer; /*alterar o cursor ao passar pelo botão*/
-            background-color: blue; /*definir a cor de fundo*/
-            color: white; /*definir a cor do botão*/
-            border:none /*remover a borda do botão*/ 
-            border-radius : 5px; /*adicionar cantos arredondados ao botão*/
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Surpresa Espacial para Você</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap');
 
-        }
-    </style>
-</head>
-<body>
-    <!--titulo principal da pagina-->
-    <h1>Bem-vindo ao meu site simples</h1>
-    <!--criando o botao que mudara a cor de fundo-->
-    <button onclick="mudarCor()">Mudar Cor de Fundo</button> 
-    <script>
-        //Funcão JavaScript para mudar a cor de fundo da pagina
-        function mudarCor(){
-            //gerar uma cor aleatória em fprmato hexadecimal 
-            var corAleatoria = '#' + Math.floor (math.random()*16777215).toString(16)
-            document.body.style.background = corAleatoria;
-        }
-    </script>
-</body>
-</html>
+  body {
+    margin: 0;
+    background: radial-gradient(ellipse at center, #000011 0%, #000022 100%);
+    height: 100vh;
+    font-family: 'Comic Neue', cursive, Arial, sans-serif;
+    color: #fff;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+
+  h1 {
+    margin-bottom: 1rem;
+    color: #66ccff;
+    text-shadow: 0 0 8px #66ccff;
+  }
+
+  /* Estrelas de fundo */
+  .stars {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .star {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: twinkle 3s infinite ease-in-out alternate;
+  }
+  .star:nth-child(odd) {
+    animation-duration: 2.5s;
+  }
+  .star:nth-child(even) {
+    animation-duration: 3.5s;
+  }
+  @keyframes twinkle {
+    0% {opacity: 0.2;}
+    100% {opacity: 1;}
+  }
+
+  /* Container dos personagens */
+  .characters {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    cursor: pointer;
+    z-index: 10;
+  }
+
+  /* Movimento voador (subindo e descendo) */
+  @keyframes fly {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-
