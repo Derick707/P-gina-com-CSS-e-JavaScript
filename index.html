@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Para você 💌</title>
+  <title>Para cachinhos ❤️‍🩹💌</title>
   <style>
     * {
       margin: 0; padding: 0; box-sizing: border-box;
@@ -18,6 +18,24 @@
       justify-content: center;
       align-items: center;
       color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .image-corner {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      width: 120px;
+      height: auto;
+      border-radius: 15px;
+      box-shadow: 0 0 12px #ffb6d9;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .image-corner:hover {
+      transform: scale(1.05) rotate(-1deg);
+      box-shadow: 0 0 25px #ff66aa;
     }
 
     .letter-container {
@@ -25,6 +43,7 @@
       width: 360px;
       height: 500px;
       cursor: pointer;
+      z-index: 2;
     }
 
     .letter-inner {
@@ -73,21 +92,6 @@
       overflow-y: auto;
     }
 
-    .letter-back img {
-      width: 100%;
-      max-height: 180px;
-      object-fit: cover;
-      border-radius: 15px;
-      margin-bottom: 1rem;
-      box-shadow: 0 0 15px #ffaacc;
-      transition: transform 0.4s, box-shadow 0.4s;
-    }
-
-    .letter-back img:hover {
-      transform: scale(1.03);
-      box-shadow: 0 0 20px #ff66aa;
-    }
-
     .close-btn {
       margin-top: 1rem;
       padding: 0.5rem 1rem;
@@ -121,18 +125,23 @@
         font-size: 1.2rem;
       }
 
-      .letter-back img {
-        max-height: 150px;
+      .image-corner {
+        width: 100px;
+        bottom: 15px;
+        left: 15px;
       }
     }
   </style>
 </head>
 <body>
+  <!-- Imagem no canto com efeito -->
+  <img src="IMG_20250612_200212.jpg" alt="Foto especial" class="image-corner" />
+
+  <!-- Carta -->
   <div class="letter-container" id="letter">
     <div class="letter-inner">
       <div class="letter-front">Clique para abrir 💌</div>
       <div class="letter-back">
-        <img src="IMG_20250612_200212.jpg" alt="Foto especial" />
         <p>Seus olhos são como constelações, guiando meu coração na escuridão.</p>
         <p>No silêncio do universo, seu olhar é o som mais bonito.</p>
         <p>Você é o céu onde minha alma encontra paz.</p>
