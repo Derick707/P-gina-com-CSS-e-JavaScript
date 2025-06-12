@@ -35,6 +35,7 @@
       max-width: 380px;
       height: 500px;
       cursor: pointer;
+      position: relative;
     }
 
     .letter-inner {
@@ -61,6 +62,7 @@
       justify-content: center;
       font-weight: bold;
       padding: 1rem;
+      overflow: hidden;
     }
 
     .letter-front {
@@ -68,9 +70,30 @@
       color: white;
       font-size: 1.4rem;
       text-align: center;
-      background-image: url('IMG_20250612_200212.jpg');
+      position: relative;
+      /* Nada de background image inteira */
+    }
+
+    /* Imagem no canto superior esquerdo da carta */
+    .letter-front::before {
+      content: "";
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      width: 120px;
+      height: 120px;
+      border-radius: 15px;
+      background: url('IMG_20250612_200212.jpg') no-repeat center center;
       background-size: cover;
-      background-position: center;
+      box-shadow: 0 0 15px #ff7cb9;
+      z-index: 1;
+    }
+
+    .letter-front > span {
+      position: relative;
+      z-index: 2;
+      padding-left: 140px; /* para texto não ficar atrás da imagem */
+      user-select: none;
     }
 
     .letter-back {
@@ -102,20 +125,30 @@
       background: #ff3366;
     }
 
+    /* Purpurina brilhante */
     .sparkle {
       position: absolute;
-      width: 20px;
-      height: 20px;
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,105,180,0.9) 0%, rgba(255,105,180,0) 70%);
+      background: radial-gradient(circle, rgba(255,182,193,1) 0%, rgba(255,182,193,0) 70%);
       pointer-events: none;
-      animation: fadeOut 2s forwards;
+      animation: sparkleFade 2s forwards;
+      filter: drop-shadow(0 0 4px #ffb6c1);
+      opacity: 0.8;
     }
 
-    @keyframes fadeOut {
-      0% { opacity: 1; transform: scale(1); }
-      100% { opacity: 0; transform: scale(2); }
+    @keyframes sparkleFade {
+      0% {
+        opacity: 0.8;
+        transform: scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(2);
+      }
     }
+
   </style>
 </head>
 <body>
@@ -123,7 +156,7 @@
   <div class="container">
     <div class="letter-container" id="letter">
       <div class="letter-inner">
-        <div class="letter-front"></div>
+        <div class="letter-front"><span>Clique para abrir 💌</span></div>
         <div class="letter-back">
           <p>Seus olhos são como constelações, guiando meu coração na escuridão.</p>
           <p>No silêncio do universo, seu olhar é o som mais bonito.</p>
@@ -139,7 +172,6 @@
     </div>
   </div>
 
-  <!-- Script para interação -->
   <script>
     const letter = document.getElementById("letter");
     const closeBtn = document.getElementById("closeBtn");
@@ -155,7 +187,7 @@
       letter.classList.remove("flipped");
     });
 
-    // Linha de brilho seguindo o dedo enquanto pressionado
+    // Purpurina que aparece só onde o dedo toca e some em 2 segundos
     let drawing = false;
 
     document.body.addEventListener("pointerdown", () => {
@@ -169,12 +201,21 @@
     document.body.addEventListener("pointermove", (e) => {
       if (!drawing) return;
 
-      const sparkle = document.createElement("div");
-      sparkle.classList.add("sparkle");
-      sparkle.style.left = `${e.clientX - 10}px`;
-      sparkle.style.top = `${e.clientY - 10}px`;
-      document.body.appendChild(sparkle);
-      setTimeout(() => sparkle.remove(), 2000);
+      // Criar vários pontinhos purpurina para efeito mais legal
+      for (let i = 0; i < 3; i++) {
+        const sparkle = document.createElement("div");
+        sparkle.classList.add("sparkle");
+
+        // Pequena variação na posição para simular dispersão
+        const offsetX = (Math.random() - 0.5) * 20;
+        const offsetY = (Math.random() - 0.5) * 20;
+
+        sparkle.style.left = `${e.clientX + offsetX}px`;
+        sparkle.style.top = `${e.clientY + offsetY}px`;
+        document.body.appendChild(sparkle);
+
+        setTimeout(() => sparkle.remove(), 2000);
+      }
     });
   </script>
 </body>
