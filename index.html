@@ -10,13 +10,12 @@
     }
 
     body {
-      min-height: 100vh; /* melhor que height: 100vh para evitar cortes */
+      min-height: 100vh;
       background: url('277a53bca9186d041a22a546a.jpg') no-repeat center center;
       background-size: cover;
       font-family: 'Segoe UI', sans-serif;
       color: #fff;
       position: relative;
-      /* Removi overflow: hidden para a animação do Gumball flutuar ficar visível */
     }
 
     .container {
@@ -28,23 +27,7 @@
       gap: 2rem;
       position: relative;
       z-index: 2;
-      padding: 1rem; /* Para dar espaço em telas pequenas */
-    }
-
-    .gumball {
-      position: fixed; /* Para flutuar mesmo se rolar a página */
-      bottom: 10%;
-      left: 10%;
-      width: 120px;
-      animation: floaty 5s ease-in-out infinite alternate;
-      z-index: 1;
-      pointer-events: none; /* para não atrapalhar cliques */
-    }
-
-    @keyframes floaty {
-      0% { transform: translateY(0) rotate(0deg); }
-      50% { transform: translateY(-20px) rotate(5deg); }
-      100% { transform: translateY(0) rotate(0deg); }
+      padding: 1rem;
     }
 
     .letter-container {
@@ -64,7 +47,7 @@
 
     .letter-container.flipped .letter-inner {
       transform: rotateY(180deg);
-      cursor: default; /* não parecer clicável quando aberto */
+      cursor: default;
     }
 
     .letter-front, .letter-back {
@@ -78,14 +61,14 @@
       align-items: center;
       justify-content: center;
       font-weight: bold;
-      user-select: none; /* para evitar seleção de texto ao clicar */
+      user-select: none;
+      padding: 1rem;
     }
 
     .letter-front {
       background: #ff6688;
       color: white;
       font-size: 1.4rem;
-      padding: 1rem;
       text-align: center;
     }
 
@@ -128,7 +111,7 @@
       animation: twinkle 8s linear infinite;
       opacity: 0.3;
       z-index: 0;
-      pointer-events: none; /* para não interferir no clique */
+      pointer-events: none;
     }
 
     @keyframes twinkle {
@@ -139,8 +122,6 @@
 </head>
 <body>
   <div class="stars"></div>
-
-  <img src="3048d9cfbadb429ac93eb86b3d.jpg" alt="Gumball astronauta" class="gumball" />
 
   <div class="container">
     <div class="letter-container" id="letter">
@@ -164,8 +145,7 @@
     const letter = document.getElementById("letter");
     const closeBtn = document.getElementById("closeBtn");
 
-    letter.addEventListener("click", (e) => {
-      // só abre se não estiver aberto
+    letter.addEventListener("click", () => {
       if (!letter.classList.contains("flipped")) {
         letter.classList.add("flipped");
       }
