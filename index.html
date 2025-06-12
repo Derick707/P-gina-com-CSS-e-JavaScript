@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Para você 💌</title>
   <style>
     * {
@@ -10,13 +10,13 @@
     }
 
     body {
-      height: 100vh;
+      min-height: 100vh; /* melhor que height: 100vh para evitar cortes */
       background: url('277a53bca9186d041a22a546a.jpg') no-repeat center center;
       background-size: cover;
       font-family: 'Segoe UI', sans-serif;
       color: #fff;
-      overflow: hidden;
       position: relative;
+      /* Removi overflow: hidden para a animação do Gumball flutuar ficar visível */
     }
 
     .container {
@@ -24,19 +24,21 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100vh;
+      min-height: 100vh;
       gap: 2rem;
       position: relative;
       z-index: 2;
+      padding: 1rem; /* Para dar espaço em telas pequenas */
     }
 
     .gumball {
-      position: absolute;
+      position: fixed; /* Para flutuar mesmo se rolar a página */
       bottom: 10%;
       left: 10%;
       width: 120px;
       animation: floaty 5s ease-in-out infinite alternate;
       z-index: 1;
+      pointer-events: none; /* para não atrapalhar cliques */
     }
 
     @keyframes floaty {
@@ -62,6 +64,7 @@
 
     .letter-container.flipped .letter-inner {
       transform: rotateY(180deg);
+      cursor: default; /* não parecer clicável quando aberto */
     }
 
     .letter-front, .letter-back {
@@ -75,12 +78,15 @@
       align-items: center;
       justify-content: center;
       font-weight: bold;
+      user-select: none; /* para evitar seleção de texto ao clicar */
     }
 
     .letter-front {
       background: #ff6688;
       color: white;
       font-size: 1.4rem;
+      padding: 1rem;
+      text-align: center;
     }
 
     .letter-back {
@@ -92,6 +98,7 @@
       font-size: 1rem;
       line-height: 1.5;
       text-align: center;
+      overflow-y: auto;
     }
 
     .close-btn {
@@ -104,7 +111,7 @@
       cursor: pointer;
       font-size: 1rem;
       box-shadow: 0 0 10px #ffb3d1;
-      transition: 0.3s;
+      transition: background 0.3s;
     }
 
     .close-btn:hover {
@@ -112,7 +119,7 @@
     }
 
     .stars {
-      position: absolute;
+      position: fixed;
       top: 0; left: 0;
       width: 100%;
       height: 100%;
@@ -121,13 +128,13 @@
       animation: twinkle 8s linear infinite;
       opacity: 0.3;
       z-index: 0;
+      pointer-events: none; /* para não interferir no clique */
     }
 
     @keyframes twinkle {
       0%, 100% { opacity: 0.3; }
       50% { opacity: 0.8; }
     }
-
   </style>
 </head>
 <body>
@@ -157,8 +164,11 @@
     const letter = document.getElementById("letter");
     const closeBtn = document.getElementById("closeBtn");
 
-    letter.addEventListener("click", () => {
-      letter.classList.add("flipped");
+    letter.addEventListener("click", (e) => {
+      // só abre se não estiver aberto
+      if (!letter.classList.contains("flipped")) {
+        letter.classList.add("flipped");
+      }
     });
 
     closeBtn.addEventListener("click", (e) => {
