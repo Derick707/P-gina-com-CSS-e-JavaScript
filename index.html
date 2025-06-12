@@ -1,58 +1,80 @@
- <!DOCTYPE html><html lang="pt-BR">
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Carta especial para ela 💌</title>
-<style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body, html {
-    height: 100%;
-    background: radial-gradient(ellipse at bottom, #001232 0%, #0b1440 60%, #000010 100%);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #eee;
-    overflow: hidden;
-    position: relative;
-  }.stars, .stars2, .stars3 { position: absolute; width: 100%; height: 100%; top: 0; left: 0; pointer-events: none; z-index: 0; } .stars { background: transparent url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="2" height="2"><circle cx="1" cy="1" r="1" fill="white" opacity="0.8"/></svg>') repeat; background-size: 10px 10px; animation: twinkle 8s linear infinite; opacity: 0.8; } .stars2 { background: transparent url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="3" height="3"><circle cx="1.5" cy="1.5" r="1.5" fill="white" opacity="0.6"/></svg>') repeat; background-size: 20px 20px; animation: twinkle 12s linear infinite; opacity: 0.5; } .stars3 { background: transparent url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="4" height="4"><circle cx="2" cy="2" r="2" fill="white" opacity="0.4"/></svg>') repeat; background-size: 40px 40px; animation: twinkle 18s linear infinite; opacity: 0.3; } @keyframes twinkle { 0%, 100% {opacity: 0.8;} 50% {opacity: 0.3;} }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Carta para Você 💌</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-.saturn { position: absolute; top: 20%; right: 8%; width: 60px; height: 60px; background: radial-gradient(circle at center, #f4e3a3 40%, #bb9f3f 80%); border-radius: 50%; box-shadow: 0 0 10px 2px #d4c47f inset; filter: drop-shadow(0 0 8px #ffeaa055); z-index: 5; } .saturn::before { content: ""; position: absolute; top: 45%; left: -60%; width: 220%; height: 25%; background: linear-gradient(90deg, transparent 20%, #cbb355 50%, transparent 80%); border-radius: 50% / 100%; filter: drop-shadow(0 0 4px #cbb35588); }
+    body, html {
+      width: 100%;
+      height: 100%;
+      font-family: 'Segoe UI', sans-serif;
+      color: white;
+      background: url('IMG_20250612_193437.jpg') no-repeat center center fixed;
+      background-size: cover;
+      overflow: hidden;
+    }
 
-.container { position: relative; width: 320px; height: 420px; perspective: 1500px; margin: auto; top: 50%; transform: translateY(-50%); z-index: 10; display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+      gap: 20px;
+    }
 
-.character { width: 120px; filter: drop-shadow(0 0 5px #9ae6ff); animation: floaty 6s ease-in-out infinite alternate; } @keyframes floaty { 0% { transform: translateY(0) translateX(0) rotate(0deg); } 50% { transform: translateY(-15px) translateX(10px) rotate(5deg);} 100% { transform: translateY(0) translateX(0) rotate(0deg);} }
+    .letter {
+      background: #fff0f0;
+      color: #600000;
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 0 20px #ff6f91;
+      width: 300px;
+      text-align: center;
+      display: none;
+      animation: fadeIn 1s ease forwards;
+    }
 
-.letter-inner { width: 100%; height: 100%; border-radius: 25px; position: relative; transform-style: preserve-3d; transition: transform 1s ease; cursor: pointer; box-shadow: 0 0 40px 10px #ff4c4caa; }
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 20px;
+      background: #ff4c4c;
+      color: white;
+      font-size: 1.1rem;
+      cursor: pointer;
+      box-shadow: 0 0 10px #ff4c4c88;
+      transition: background 0.3s ease;
+    }
 
-.letter-front, .letter-back { position: absolute; width: 100%; height: 100%; border-radius: 25px; backface-visibility: hidden; overflow: hidden; } .letter-front { background: linear-gradient(135deg, #ff4c4c 0%, #ff8a8a 100%); color: white; font-weight: 700; font-size: 1.4rem; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 25px 8px #ff4c4caa; user-select: none; } .letter-front:hover { box-shadow: 0 0 45px 14px #ff2222cc; } .letter-back { background: linear-gradient(135deg, #fff0f0 0%, #ffd1d1 100%); color: #900000; padding: 2rem; font-size: 1.1rem; line-height: 1.5; border: 2px solid #ff4c4c; transform: rotateY(180deg); box-shadow: 0 0 20px 8px #ff4c4caa; overflow-y: auto; }
+    .btn:hover {
+      background: #ff1f1f;
+    }
 
-.container.flipped .letter-inner { transform: rotateY(180deg); }
-
-.close-btn { position: absolute; top: 15px; right: 15px; background: #ff4c4c; border: none; border-radius: 50%; width: 32px; height: 32px; font-size: 1.4rem; color: white; cursor: pointer; box-shadow: 0 0 15px #ff4c4ccc; transition: background-color 0.3s ease; z-index: 20; } .close-btn:hover { background-color: #ff2222; } .close-btn::after { content: ""; position: absolute; top: -6px; left: -6px; right: -6px; bottom: -6px; border-radius: 50%; box-shadow: 0 0 8px 3px #ff4c4ccc; opacity: 0.7; animation: pulse 2.5s infinite; } @keyframes pulse { 0%, 100% { opacity: 0.7; } 50% { opacity: 1; } } </style>
-
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
 </head>
 <body>
-  <div class="stars"></div>
-  <div class="stars2"></div>
-  <div class="stars3"></div>
-  <div class="saturn"></div>
-  <div class="container" id="container">
-    <img src="https://i.imgur.com/wPtMCJb.png" alt="Astronauta" class="character">
-    <div class="letter-inner" onclick="toggleFlip()">
-      <div class="letter-front">Clique para abrir 💌</div>
-      <div class="letter-back">
-        <p>Seus olhos brilham mais do que qualquer estrela neste universo.<br>
-        Quando olho para eles, é como se todo o céu se curvasse em admiração.<br>
-        Há galáxias inteiras no seu olhar, e cada uma delas me leva para mais perto de você.<br>
-        Estar contigo é como flutuar no espaço, leve, livre, e apaixonado.<br>
-        O universo é infinito, mas ainda assim, você é o meu tudo.<br>
-        Te encontrei entre bilhões, como uma estrela cadente que só passa uma vez.<br>
-        E eu vou te desejar para sempre.</p>
-      </div>
+  <div class="container">
+    <button class="btn" onclick="document.querySelector('.letter').style.display = 'block'">Abrir Carta 💌</button>
+    <div class="letter">
+      <p>Teus olhos brilham mais que as estrelas que cobrem o céu infinito.<br><br>
+      Neles, encontro galáxias de paz, universos de carinho e constelações de amor.<br><br>
+      São faróis que guiam meu coração, mesmo nas noites mais escuras.<br><br>
+      Cada vez que te olho, é como viajar pelo cosmos em busca de algo tão belo quanto você.<br><br>
+      E mesmo se eu visitasse todos os cantos do universo, sei que nada se compararia à imensidão do que sinto por ti.<br><br>
+      Você é o meu universo favorito.</p>
     </div>
   </div>
-  <script>
-    function toggleFlip() {
-      document.getElementById('container').classList.toggle('flipped');
-    }
-  </script>
 </body>
- </html>
+</html>
