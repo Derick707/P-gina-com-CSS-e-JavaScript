@@ -3,10 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Para cachinhos ❤️‍🩹💌</title>
+  <title>Para você 💌</title>
   <style>
     * {
-      margin: 0; padding: 0; box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
     body {
@@ -14,36 +16,33 @@
       background: url('Screenshot_2025-06-12-20-03-58-170_com.miui.gallery.jpg') no-repeat center center;
       background-size: cover;
       font-family: 'Segoe UI', sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
       color: #fff;
       position: relative;
       overflow: hidden;
     }
 
-    .image-corner {
-      position: absolute;
-      bottom: 20px;
-      left: 20px;
-      width: 120px;
-      height: auto;
-      border-radius: 15px;
-      box-shadow: 0 0 12px #ffb6d9;
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    .top-image {
+      width: 100%;
+      max-height: 300px;
+      object-fit: cover;
+      border-bottom: 5px solid #ff8abf;
+      box-shadow: 0 4px 12px #ffaad5;
     }
 
-    .image-corner:hover {
-      transform: scale(1.05) rotate(-1deg);
-      box-shadow: 0 0 25px #ff66aa;
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1rem;
+      margin-top: 1rem;
     }
 
     .letter-container {
       perspective: 1200px;
-      width: 360px;
+      width: 90vw;
+      max-width: 380px;
       height: 500px;
       cursor: pointer;
-      z-index: 2;
     }
 
     .letter-inner {
@@ -56,7 +55,6 @@
 
     .letter-container.flipped .letter-inner {
       transform: rotateY(180deg);
-      cursor: default;
     }
 
     .letter-front, .letter-back {
@@ -109,51 +107,48 @@
       background: #ff3366;
     }
 
-    @media (max-width: 400px) {
-      .letter-container {
-        width: 90vw;
-        height: auto;
-        max-height: 90vh;
-      }
+    .sparkle {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,105,180,0.9) 0%, rgba(255,105,180,0) 80%);
+      pointer-events: none;
+      animation: fadeOut 1s forwards;
+    }
 
-      .letter-back {
-        font-size: 0.95rem;
-        padding: 1rem;
-      }
-
-      .letter-front {
-        font-size: 1.2rem;
-      }
-
-      .image-corner {
-        width: 100px;
-        bottom: 15px;
-        left: 15px;
-      }
+    @keyframes fadeOut {
+      0% { opacity: 1; transform: scale(1); }
+      100% { opacity: 0; transform: scale(2); }
     }
   </style>
 </head>
 <body>
-  <!-- Imagem no canto com efeito -->
-  <img src="IMG_20250612_200212.jpg" alt="Foto especial" class="image-corner" />
 
-  <!-- Carta -->
-  <div class="letter-container" id="letter">
-    <div class="letter-inner">
-      <div class="letter-front">Clique para abrir 💌</div>
-      <div class="letter-back">
-        <p>Seus olhos são como constelações, guiando meu coração na escuridão.</p>
-        <p>No silêncio do universo, seu olhar é o som mais bonito.</p>
-        <p>Você é o céu onde minha alma encontra paz.</p>
-        <p>Entre estrelas e planetas, nenhum brilha como você.</p>
-        <p>Te olhar é como viajar pelas galáxias — mágico e infinito.</p>
-        <p>Com você, tudo é mais bonito, mais leve, mais eterno.</p>
-        <p>Meu amor por você é tão vasto quanto o próprio universo. ✨</p>
-        <button class="close-btn" id="closeBtn">Fechar</button>
+  <!-- Imagem no topo -->
+  <img src="IMG_20250612_200212.jpg" alt="Imagem especial" class="top-image" />
+
+  <!-- Conteúdo -->
+  <div class="container">
+    <div class="letter-container" id="letter">
+      <div class="letter-inner">
+        <div class="letter-front">Clique para abrir 💌</div>
+        <div class="letter-back">
+          <p>Seus olhos são como constelações, guiando meu coração na escuridão.</p>
+          <p>No silêncio do universo, seu olhar é o som mais bonito.</p>
+          <p>Você é o céu onde minha alma encontra paz.</p>
+          <p>Entre estrelas e planetas, nenhum brilha como você.</p>
+          <p>Te olhar é como viajar pelas galáxias — mágico e infinito.</p>
+          <p>Com você, tudo é mais bonito, mais leve, mais eterno.</p>
+          <p>Meu amor por você é tão vasto quanto o próprio universo. ✨</p>
+          <p>Eu te amo cachinhos 🫶🏻❤️<p>
+           <button class="close-btn" id="closeBtn">Fechar</button>
+        </div>
       </div>
     </div>
   </div>
 
+  <!-- Script para interação -->
   <script>
     const letter = document.getElementById("letter");
     const closeBtn = document.getElementById("closeBtn");
@@ -167,6 +162,16 @@
     closeBtn.addEventListener("click", (e) => {
       e.stopPropagation();
       letter.classList.remove("flipped");
+    });
+
+    // Brilho rosa ao tocar
+    document.body.addEventListener("pointermove", (e) => {
+      const sparkle = document.createElement("div");
+      sparkle.classList.add("sparkle");
+      sparkle.style.left = `${e.clientX - 15}px`;
+      sparkle.style.top = `${e.clientY - 15}px`;
+      document.body.appendChild(sparkle);
+      setTimeout(() => sparkle.remove(), 1000);
     });
   </script>
 </body>
