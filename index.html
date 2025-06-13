@@ -33,14 +33,18 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: box-shadow 0.5s ease;
+      transition: box-shadow 0.6s ease;
+      border-radius: 20px;
+      /* Fundo transparente para o brilho pegar bem */
+      background: transparent;
     }
 
-    /* Brilho suave na carta aberta */
+    /* Brilho suave nas bordas da carta aberta, efeito contínuo */
     .letter-container.flipped {
       box-shadow:
-        0 0 15px 5px rgba(255, 102, 136, 0.7),
-        0 0 30px 10px rgba(255, 102, 136, 0.5);
+        0 0 20px 6px rgba(255, 102, 136, 0.75),
+        0 0 40px 12px rgba(255, 102, 136, 0.5),
+        inset 0 0 15px 4px rgba(255, 102, 136, 0.7);
       animation: glowPulse 3s ease-in-out infinite;
       cursor: default;
     }
@@ -48,13 +52,15 @@
     @keyframes glowPulse {
       0%, 100% {
         box-shadow:
-          0 0 15px 5px rgba(255, 102, 136, 0.7),
-          0 0 30px 10px rgba(255, 102, 136, 0.5);
+          0 0 20px 6px rgba(255, 102, 136, 0.75),
+          0 0 40px 12px rgba(255, 102, 136, 0.5),
+          inset 0 0 15px 4px rgba(255, 102, 136, 0.7);
       }
       50% {
         box-shadow:
-          0 0 20px 8px rgba(255, 102, 136, 1),
-          0 0 40px 14px rgba(255, 102, 136, 0.7);
+          0 0 30px 9px rgba(255, 102, 136, 1),
+          0 0 50px 16px rgba(255, 102, 136, 0.7),
+          inset 0 0 25px 7px rgba(255, 102, 136, 0.9);
       }
     }
 
@@ -176,6 +182,7 @@
       animation-iteration-count: infinite;
       animation-timing-function: ease-in-out;
       animation-duration: 2s, 5s;
+      transition: opacity 1s ease;
     }
 
     /* Piscando */
@@ -189,6 +196,14 @@
       0%, 100% { transform: translateY(0) scale(1); }
       50% { transform: translateY(-6px) scale(1.1); }
     }
+
+    /* Fade out para purpurinas */
+    .fade-out {
+      opacity: 0 !important;
+      transition: opacity 1.5s ease !important;
+      animation-play-state: paused !important;
+    }
+
   </style>
 </head>
 <body>
@@ -213,9 +228,9 @@
     </div>
   </div>
 
-  <!-- Sons -->
-  <audio id="openSound" src="https://actions.google.com/sounds/v1/cartoon/pop.ogg" preload="auto"></audio>
-  <audio id="closeSound" src="https://actions.google.com/sounds/v1/cartoon/slide_whistle_to_drum_hit.ogg" preload="auto"></audio>
+  <!-- Sons suaves -->
+  <audio id="openSound" src="https://actions.google.com/sounds/v1/alarms/smooth_bell.ogg" preload="auto"></audio>
+  <audio id="closeSound" src="https://actions.google.com/sounds/v1/alarms/soft_bell.ogg" preload="auto"></audio>
 
   <script>
     const letter = document.getElementById("letter");
@@ -235,7 +250,7 @@
       const colors = ['#ff66cc', '#cc99ff', '#ff99cc', '#f8f8ff', '#d8b7ff'];
       glitter.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
 
-      // Posição aleatória no topo da tela e ao redor da carta
+      // Posição aleatória na tela (top 40% da janela)
       glitter.style.left = `${Math.random() * window.innerWidth}px`;
       glitter.style.top = `${Math.random() * window.innerHeight * 0.4}px`;
 
@@ -247,7 +262,10 @@
 
       // Remove após 5 segundos
       setTimeout(() => {
-        glitter.remove();
+        // Se não estiver fade out, remove
+        if (!glitter.classList.contains('fade-out')) {
+          glitter.remove();
+        }
       }, 5000);
     }
 
@@ -258,6 +276,18 @@
         clearInterval(glitterInterval);
         glitterInterval = null;
       }, 5000);
+    }
+
+    // Ao fechar, purpurinas entram em fade e somem depois
+    function fadeOutGlitters() {
+      const glitters = document.querySelectorAll('.glitter');
+      glitters.forEach((g, i) => {
+        // Com delay pra não sumirem todas instantâneo
+        setTimeout(() => {
+          g.classList.add('fade-out');
+          setTimeout(() => g.remove(), 1600);
+        }, i * 70);
+      });
     }
 
     letter.addEventListener('click', () => {
@@ -279,7 +309,7 @@
           clearInterval(glitterInterval);
           glitterInterval = null;
         }
-        document.querySelectorAll('.glitter').forEach(glitter => glitter.remove());
+        fadeOutGlitters();
         if(glitterTimeout) {
           clearTimeout(glitterTimeout);
           glitterTimeout = null;
@@ -290,5 +320,3 @@
 
 </body>
 </html>
-
-
