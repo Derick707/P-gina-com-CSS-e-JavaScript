@@ -19,8 +19,8 @@
       color: #fff;
       overflow: hidden;
       display: flex;
-      align-items: center;   /* centraliza verticalmente */
-      justify-content: center; /* centraliza horizontalmente */
+      align-items: center;
+      justify-content: center;
     }
 
     .letter-container {
@@ -33,6 +33,29 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      transition: box-shadow 0.5s ease;
+    }
+
+    /* Brilho suave na carta aberta */
+    .letter-container.flipped {
+      box-shadow:
+        0 0 15px 5px rgba(255, 102, 136, 0.7),
+        0 0 30px 10px rgba(255, 102, 136, 0.5);
+      animation: glowPulse 3s ease-in-out infinite;
+      cursor: default;
+    }
+
+    @keyframes glowPulse {
+      0%, 100% {
+        box-shadow:
+          0 0 15px 5px rgba(255, 102, 136, 0.7),
+          0 0 30px 10px rgba(255, 102, 136, 0.5);
+      }
+      50% {
+        box-shadow:
+          0 0 20px 8px rgba(255, 102, 136, 1),
+          0 0 40px 14px rgba(255, 102, 136, 0.7);
+      }
     }
 
     .letter-inner {
@@ -41,13 +64,13 @@
       height: 100%;
       transition: transform 1s;
       transform-style: preserve-3d;
-      box-shadow: 0 0 20px #ff8abf;
       border-radius: 20px;
       background: linear-gradient(135deg, #ff6688, #ffa5d8);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      box-shadow: 0 0 20px #ff8abf;
     }
 
     .letter-container.flipped .letter-inner {
@@ -70,25 +93,38 @@
       padding: 1rem 1.5rem;
       box-sizing: border-box;
       text-align: center;
+      user-select: none;
     }
 
     .letter-front {
       color: white;
       font-size: 1.4rem;
-      user-select: none;
     }
 
+    /* Animação pulse leve na imagem da capa */
     .letter-front img {
       position: absolute;
       bottom: 15px;
       left: 15px;
-      width: 100px;
-      height: 100px;
+      width: 110px;
+      height: 110px;
       border-radius: 15px;
       object-fit: cover;
       box-shadow: 0 0 10px white;
       pointer-events: none;
       user-select: none;
+      animation: pulseImg 4s ease-in-out infinite;
+    }
+
+    @keyframes pulseImg {
+      0%, 100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 8px #fff);
+      }
+      50% {
+        transform: scale(1.05);
+        filter: drop-shadow(0 0 14px #ff6a8c);
+      }
     }
 
     .letter-back {
@@ -99,6 +135,7 @@
       font-size: 1rem;
       line-height: 1.4;
       user-select: text;
+      cursor: default;
     }
 
     .letter-back p {
@@ -126,27 +163,31 @@
       background: #ff3366;
     }
 
-    /* Estrelas caindo */
-    .falling-star {
+    /* Purpurina - partículas pequenas brilhantes */
+    .glitter {
       position: fixed;
-      width: 10px;
-      height: 10px;
+      width: 6px;
+      height: 6px;
       border-radius: 50%;
-      opacity: 0.9;
-      animation: fall 4s linear forwards;
       pointer-events: none;
-      z-index: 9999;
+      opacity: 0.8;
+      filter: drop-shadow(0 0 4px #fff);
+      animation-name: glitterTwinkle, glitterFloat;
+      animation-iteration-count: infinite;
+      animation-timing-function: ease-in-out;
+      animation-duration: 2s, 5s;
     }
 
-    @keyframes fall {
-      0% {
-        transform: translateY(-20px) scale(1);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(100vh) scale(0.5);
-        opacity: 0;
-      }
+    /* Piscando */
+    @keyframes glitterTwinkle {
+      0%, 100% { opacity: 0.8; }
+      50% { opacity: 0.2; }
+    }
+
+    /* Flutuação leve vertical */
+    @keyframes glitterFloat {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-6px) scale(1.1); }
     }
   </style>
 </head>
@@ -172,60 +213,82 @@
     </div>
   </div>
 
+  <!-- Sons -->
+  <audio id="openSound" src="https://actions.google.com/sounds/v1/cartoon/pop.ogg" preload="auto"></audio>
+  <audio id="closeSound" src="https://actions.google.com/sounds/v1/cartoon/slide_whistle_to_drum_hit.ogg" preload="auto"></audio>
+
   <script>
     const letter = document.getElementById("letter");
     const closeBtn = document.getElementById("closeBtn");
+    const openSound = document.getElementById("openSound");
+    const closeSound = document.getElementById("closeSound");
 
-    let starsInterval = null;
-    let starsTimeout = null;
+    let glitterInterval = null;
+    let glitterTimeout = null;
 
-    function createFallingStar() {
-      const star = document.createElement("div");
-      star.classList.add("falling-star");
-      const colors = ['#ff66cc', '#66ccff', '#ff3333'];
-      star.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-      star.style.left = `${Math.random() * window.innerWidth}px`;
-      star.style.top = `-20px`;
-      document.body.appendChild(star);
+    // Cria uma partícula de purpurina
+    function createGlitter() {
+      const glitter = document.createElement("div");
+      glitter.classList.add("glitter");
 
-      star.style.animationDuration = (3 + Math.random() * 2) + 's';
+      // Cores em tons rosados/lilas/branco
+      const colors = ['#ff66cc', '#cc99ff', '#ff99cc', '#f8f8ff', '#d8b7ff'];
+      glitter.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
 
-      star.addEventListener('animationend', () => {
-        star.remove();
-      });
+      // Posição aleatória no topo da tela e ao redor da carta
+      glitter.style.left = `${Math.random() * window.innerWidth}px`;
+      glitter.style.top = `${Math.random() * window.innerHeight * 0.4}px`;
+
+      // Duração e atraso de animação aleatórios para variar os piscas
+      glitter.style.animationDuration = `${1 + Math.random() * 2}s, ${4 + Math.random() * 3}s`;
+      glitter.style.animationDelay = `${Math.random() * 2}s, ${Math.random() * 5}s`;
+
+      document.body.appendChild(glitter);
+
+      // Remove após 5 segundos
+      setTimeout(() => {
+        glitter.remove();
+      }, 5000);
     }
 
-    function startStars() {
-      if (starsInterval) return;
-      starsInterval = setInterval(createFallingStar, 150);
-      starsTimeout = setTimeout(() => {
-        clearInterval(starsInterval);
-        starsInterval = null;
-      }, 5000); // 5 segundos de estrelas caindo
+    function startGlitter() {
+      if (glitterInterval) return;
+      glitterInterval = setInterval(createGlitter, 100);
+      glitterTimeout = setTimeout(() => {
+        clearInterval(glitterInterval);
+        glitterInterval = null;
+      }, 5000);
     }
 
     letter.addEventListener('click', () => {
       if (!letter.classList.contains('flipped')) {
         letter.classList.add('flipped');
-        startStars();
+        openSound.currentTime = 0;
+        openSound.play();
+        startGlitter();
       }
     });
 
     closeBtn.addEventListener('click', e => {
       e.stopPropagation();
-      letter.classList.remove('flipped');
-      if (starsInterval) {
-        clearInterval(starsInterval);
-        starsInterval = null;
-      }
-      document.querySelectorAll('.falling-star').forEach(star => star.remove());
-      if(starsTimeout) {
-        clearTimeout(starsTimeout);
-        starsTimeout = null;
+      if (letter.classList.contains('flipped')) {
+        closeSound.currentTime = 0;
+        closeSound.play();
+        letter.classList.remove('flipped');
+        if (glitterInterval) {
+          clearInterval(glitterInterval);
+          glitterInterval = null;
+        }
+        document.querySelectorAll('.glitter').forEach(glitter => glitter.remove());
+        if(glitterTimeout) {
+          clearTimeout(glitterTimeout);
+          glitterTimeout = null;
+        }
       }
     });
   </script>
 
 </body>
 </html>
+
 
