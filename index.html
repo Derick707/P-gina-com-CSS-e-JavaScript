@@ -40,6 +40,8 @@
       cursor: pointer;
       transition: background 0.5s ease;
       will-change: transform;
+      position: relative;
+      z-index: 10; /* garantir na frente */
     }
 
     .letter-inner {
@@ -109,6 +111,8 @@
       overflow-y: auto;
       background: #fff0f5;
       box-shadow: inset 0 0 20px #ff66cc44;
+      z-index: 20; /* garantir texto na frente */
+      position: relative;
     }
 
     .close-btn {
@@ -123,6 +127,8 @@
       box-shadow: 0 0 15px #ffb3d1;
       transition: background 0.3s ease;
       user-select: none;
+      z-index: 20;
+      position: relative;
     }
 
     .close-btn:hover {
@@ -130,14 +136,15 @@
     }
 
     .falling-star {
-      position: absolute;
+      position: fixed; /* para ficar sobre tudo e não atrapalhar */
       width: 8px;
       height: 8px;
       border-radius: 50%;
       opacity: 0.9;
       filter: drop-shadow(0 0 2px #fff);
       animation: fall 3s linear forwards;
-      pointer-events: none;
+      pointer-events: none; /* deixa passar cliques */
+      z-index: 5; /* atrás da carta */
     }
 
     /* Cores das estrelas */
@@ -169,7 +176,7 @@
 </head>
 <body>
   <div class="container">
-    <div class="letter-container" id="letter" aria-label="Carta interativa">
+    <div class="letter-container" id="letter" aria-label="Carta interativa" tabindex="0">
       <div class="letter-inner">
         <div class="letter-front" aria-hidden="false" role="img" aria-label="Capa da carta">
           Clique para abrir 💌
@@ -197,13 +204,22 @@
     const closeBtn = document.getElementById("closeBtn");
     const sound = document.getElementById("sound");
 
-    // Abrir carta com animação e som
+    let starsInterval;
+    let starsTimeout;
+
     letter.addEventListener("click", () => {
       if (!letter.classList.contains("flipped")) {
         letter.classList.add("flipped");
         sound.currentTime = 0;
         sound.play();
         startFallingStars();
+
+        // Remover estrelas após 5 segundos
+        starsTimeout = setTimeout(() => {
+          stopFallingStars();
+          // Limpar estrelas restantes
+          document.querySelectorAll('.falling-star').forEach(star => star.remove());
+        }, 5000);
       }
     });
 
@@ -211,9 +227,9 @@
       e.stopPropagation();
       letter.classList.remove("flipped");
       stopFallingStars();
+      clearTimeout(starsTimeout);
+      document.querySelectorAll('.falling-star').forEach(star => star.remove());
     });
-
-    let starsInterval;
 
     function createFallingStar() {
       const star = document.createElement("div");
@@ -232,8 +248,7 @@
     }
 
     function startFallingStars() {
-      // Criar um fluxo contínuo de estrelas caindo
-      createFallingStar(); // Estrela inicial imediata
+      createFallingStar();
       starsInterval = setInterval(createFallingStar, 150);
     }
 
