@@ -1,5 +1,5 @@
-
-<!DOCTYPE html><html lang="pt-BR">
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -9,135 +9,173 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-    }body {
-  min-height: 100vh;
-  background: url('9e868fe5fe7e8cb622b6a1ac23733f7d.jpg') no-repeat center center;
-  background-size: cover;
-  font-family: 'Segoe UI', sans-serif;
-  color: #fff;
-  overflow: hidden;
-  position: relative;
-}
+    }
 
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
-  height: 100vh;
-}
+    body {
+      min-height: 100vh;
+      background: url('Screenshot_2025-06-12-20-03-58-170_com.miui.gallery.jpg') no-repeat center center;
+      background-size: cover;
+      font-family: 'Segoe UI', sans-serif;
+      color: #fff;
+      overflow: hidden;
+      position: relative;
+    }
 
-.letter-container {
-  perspective: 1200px;
-  width: 90vw;
-  max-width: 380px;
-  height: 500px;
-  cursor: pointer;
-  transition: background 0.5s ease;
-}
+    .container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
 
-.letter-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  transition: transform 1s;
-  transform-style: preserve-3d;
-}
+    .letter-container {
+      perspective: 1200px;
+      width: 90vw;
+      max-width: 380px;
+      height: 520px;
+      cursor: pointer;
+      transition: background 0.5s ease;
+      will-change: transform;
+    }
 
-.letter-container.flipped .letter-inner {
-  transform: rotateY(180deg);
-}
+    .letter-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-style: preserve-3d;
+      box-shadow: 0 0 30px #ff8abf88;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #ff6688, #ffa5d8);
+      overflow: hidden;
+    }
 
-.letter-front, .letter-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  border-radius: 20px;
-  backface-visibility: hidden;
-  box-shadow: 0 0 20px #ff8abf;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  padding: 1rem;
-}
+    .letter-container.flipped .letter-inner {
+      transform: rotateY(180deg);
+      box-shadow: 0 0 60px #ff66cccc;
+      background: #fff0f5;
+    }
 
-.letter-front {
-  background: linear-gradient(135deg, #ff6688, #ffa5d8);
-  color: white;
-  font-size: 1.4rem;
-  text-align: center;
-  position: relative;
-}
+    .letter-front, .letter-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 20px;
+      backface-visibility: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      padding: 1rem;
+      user-select: none;
+    }
 
-.letter-front img {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  object-fit: cover;
-  box-shadow: 0 0 10px white;
-}
+    .letter-front {
+      color: white;
+      font-size: 1.4rem;
+      text-align: center;
+      position: relative;
+      overflow: visible;
+    }
 
-.letter-back {
-  background: #fff0f5;
-  color: #880033;
-  transform: rotateY(180deg);
-  flex-direction: column;
-  padding: 1.5rem;
-  font-size: 1rem;
-  line-height: 1.4;
-  text-align: center;
-  overflow-y: auto;
-}
+    .letter-front img {
+      position: absolute;
+      bottom: 15px;
+      right: 15px;
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 0 15px white;
+      border: 3px solid #fff0f5;
+      transition: transform 0.3s ease;
+    }
+    .letter-front:hover img {
+      transform: scale(1.05);
+    }
 
-.close-btn {
-  margin-top: 1rem;
-  padding: 0.5rem 1rem;
-  background: #ff6688;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 1rem;
-  box-shadow: 0 0 10px #ffb3d1;
-  transition: background 0.3s;
-}
+    .letter-back {
+      color: #880033;
+      transform: rotateY(180deg);
+      flex-direction: column;
+      padding: 2rem 1.5rem;
+      font-size: 1rem;
+      line-height: 1.5;
+      text-align: center;
+      overflow-y: auto;
+      background: #fff0f5;
+      box-shadow: inset 0 0 20px #ff66cc44;
+    }
 
-.close-btn:hover {
-  background: #ff3366;
-}
+    .close-btn {
+      margin-top: 1.5rem;
+      padding: 0.6rem 1.2rem;
+      background: #ff6688;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 1rem;
+      box-shadow: 0 0 15px #ffb3d1;
+      transition: background 0.3s ease;
+      user-select: none;
+    }
 
-.star {
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  background: radial-gradient(circle, #fff 0%, #f0f 60%, transparent 100%);
-  border-radius: 50%;
-  pointer-events: none;
-  opacity: 0.8;
-  animation: sparkle 2s forwards;
-}
+    .close-btn:hover {
+      background: #ff3366;
+    }
 
-@keyframes sparkle {
-  from { opacity: 0.8; transform: scale(1); }
-  to { opacity: 0; transform: scale(2); }
-}
+    .falling-star {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      opacity: 0.9;
+      filter: drop-shadow(0 0 2px #fff);
+      animation: fall 3s linear forwards;
+      pointer-events: none;
+    }
+
+    /* Cores das estrelas */
+    .color-pink {
+      background-color: #ff66cc;
+      box-shadow: 0 0 8px #ff66ccaa;
+    }
+    .color-blue {
+      background-color: #66ccff;
+      box-shadow: 0 0 8px #66ccffaa;
+    }
+    .color-red {
+      background-color: #ff3366;
+      box-shadow: 0 0 8px #ff3366aa;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(110vh) scale(0.5);
+        opacity: 0;
+      }
+    }
 
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="letter-container" id="letter">
+    <div class="letter-container" id="letter" aria-label="Carta interativa">
       <div class="letter-inner">
-        <div class="letter-front">
+        <div class="letter-front" aria-hidden="false" role="img" aria-label="Capa da carta">
           Clique para abrir 💌
-          <img src="9e868fe5fe7e8cb622b6a1ac23733f7d.jpg" alt="Imagem linda">
+          <img src="9e868fe5fe7e8cb622b6a1ac23733f7d.jpg" alt="Imagem decorativa da carta" />
         </div>
-        <div class="letter-back">
+        <div class="letter-back" aria-hidden="true">
           <p>Seus olhos são como constelações, guiando meu coração na escuridão.</p>
           <p>No silêncio do universo, seu olhar é o som mais bonito.</p>
           <p>Você é o céu onde minha alma encontra paz.</p>
@@ -146,56 +184,62 @@
           <p>Com você, tudo é mais bonito, mais leve, mais eterno.</p>
           <p>Meu amor por você é tão vasto quanto o próprio universo. ✨</p>
           <p>Eu te amo cachinhos 🫶🏻❤️</p>
-          <button class="close-btn" id="closeBtn">Fechar</button>
+          <button class="close-btn" id="closeBtn" aria-label="Fechar carta">Fechar</button>
         </div>
       </div>
     </div>
-  </div><audio id="sound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_b6a446aa7d.mp3" preload="auto"></audio>
+  </div>
+
+  <audio id="sound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_b6a446aa7d.mp3" preload="auto"></audio>
 
   <script>
     const letter = document.getElementById("letter");
     const closeBtn = document.getElementById("closeBtn");
     const sound = document.getElementById("sound");
 
+    // Abrir carta com animação e som
     letter.addEventListener("click", () => {
       if (!letter.classList.contains("flipped")) {
         letter.classList.add("flipped");
+        sound.currentTime = 0;
         sound.play();
+        startFallingStars();
       }
     });
 
     closeBtn.addEventListener("click", (e) => {
       e.stopPropagation();
       letter.classList.remove("flipped");
+      stopFallingStars();
     });
 
-    let drawing = false;
+    let starsInterval;
 
-    document.addEventListener("pointerdown", (e) => {
-      drawing = true;
-      spawnStar(e);
-    });
-
-    document.addEventListener("pointerup", () => {
-      drawing = false;
-    });
-
-    document.addEventListener("pointermove", (e) => {
-      if (drawing) {
-        spawnStar(e);
-      }
-    });
-
-    function spawnStar(e) {
+    function createFallingStar() {
       const star = document.createElement("div");
-      star.className = "star";
-      star.style.left = `${e.clientX}px`;
-      star.style.top = `${e.clientY}px`;
-      document.body.appendChild(star);
-      setTimeout(() => star.remove(), 2000);
+      star.classList.add("falling-star");
 
-      // mudar cor da carta enquanto toca
-      document.getElementById("letter").style.background = `radial-gradient(circle at ${e.clientX}px ${e.clientY}px, #ffb6c1, transparent)`;
+      const colors = ['color-pink', 'color-blue', 'color-red'];
+      star.classList.add(colors[Math.floor(Math.random() * colors.length)]);
+
+      star.style.left = `${Math.random() * 100}vw`;
+      star.style.top = `-10px`;
+      document.body.appendChild(star);
+
+      star.addEventListener('animationend', () => {
+        star.remove();
+      });
     }
-  </script></body>
+
+    function startFallingStars() {
+      // Criar um fluxo contínuo de estrelas caindo
+      createFallingStar(); // Estrela inicial imediata
+      starsInterval = setInterval(createFallingStar, 150);
+    }
+
+    function stopFallingStars() {
+      clearInterval(starsInterval);
+    }
+  </script>
+</body>
 </html>
