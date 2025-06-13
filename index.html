@@ -19,48 +19,36 @@
       color: #fff;
       overflow: hidden;
       position: relative;
-    }
-
-    .container {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
+      height: 100vh;
     }
 
     .letter-container {
       perspective: 1200px;
       width: 90vw;
       max-width: 380px;
-      height: 520px;
+      height: 500px;
       cursor: pointer;
-      transition: background 0.5s ease;
-      will-change: transform;
       position: relative;
-      z-index: 10;
-      user-select: none;
     }
 
     .letter-inner {
       position: relative;
       width: 100%;
       height: 100%;
-      transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: transform 1s;
       transform-style: preserve-3d;
-      box-shadow: 0 0 30px #ff8abf88;
+      box-shadow: 0 0 20px #ff8abf;
       border-radius: 20px;
       background: linear-gradient(135deg, #ff6688, #ffa5d8);
-      overflow: hidden;
     }
 
     .letter-container.flipped .letter-inner {
       transform: rotateY(180deg);
-      box-shadow: 0 0 60px #ff66cccc;
       background: #fff0f5;
+      box-shadow: 0 0 30px #ff6688;
     }
 
     .letter-front, .letter-back {
@@ -74,8 +62,7 @@
       justify-content: center;
       font-weight: bold;
       padding: 1rem;
-      user-select: text;
-      overflow-y: auto;
+      box-sizing: border-box;
     }
 
     .letter-front {
@@ -83,186 +70,163 @@
       font-size: 1.4rem;
       text-align: center;
       position: relative;
+      flex-direction: column;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     .letter-front img {
       position: absolute;
       bottom: 15px;
-      right: 15px;
-      width: 110px;
-      height: 110px;
-      border-radius: 50%;
+      left: 15px;
+      width: 100px;
+      height: 100px;
+      border-radius: 15px;
       object-fit: cover;
-      box-shadow: 0 0 15px white;
-      border: 3px solid #fff0f5;
-      transition: transform 0.3s ease;
-      pointer-events: none; /* para não atrapalhar cliques na carta */
-    }
-    .letter-front:hover img {
-      transform: scale(1.05);
+      box-shadow: 0 0 10px white;
+      user-select: none;
+      pointer-events: none;
     }
 
     .letter-back {
       color: #880033;
       transform: rotateY(180deg);
       flex-direction: column;
-      padding: 2rem 1.5rem;
       font-size: 1rem;
-      line-height: 1.5;
+      line-height: 1.4;
       text-align: center;
+      overflow-y: auto;
       background: #fff0f5;
-      box-shadow: inset 0 0 20px #ff66cc44;
-      z-index: 20;
-      position: relative;
+      padding: 2rem 1.5rem 1.5rem 1.5rem;
+      user-select: text;
+    }
+
+    .letter-back p {
+      margin-bottom: 1rem;
+      color: #880033;
     }
 
     .close-btn {
-      margin-top: 1.5rem;
-      padding: 0.6rem 1.2rem;
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
       background: #ff6688;
       color: white;
       border: none;
-      border-radius: 12px;
+      border-radius: 10px;
       cursor: pointer;
       font-size: 1rem;
-      box-shadow: 0 0 15px #ffb3d1;
-      transition: background 0.3s ease;
+      box-shadow: 0 0 10px #ffb3d1;
+      transition: background 0.3s;
       user-select: none;
-      z-index: 25;
-      position: relative;
     }
 
     .close-btn:hover {
       background: #ff3366;
     }
 
+    /* Estrelas caindo */
     .falling-star {
       position: fixed;
-      width: 8px;
-      height: 8px;
+      width: 10px;
+      height: 10px;
       border-radius: 50%;
       opacity: 0.9;
-      filter: drop-shadow(0 0 2px #fff);
-      animation: fall 3s linear forwards;
+      animation: fall 4s linear forwards;
       pointer-events: none;
-      z-index: 5;
-    }
-
-    .color-pink {
-      background-color: #ff66cc;
-      box-shadow: 0 0 8px #ff66ccaa;
-    }
-    .color-blue {
-      background-color: #66ccff;
-      box-shadow: 0 0 8px #66ccffaa;
-    }
-    .color-red {
-      background-color: #ff3366;
-      box-shadow: 0 0 8px #ff3366aa;
+      z-index: 9999;
     }
 
     @keyframes fall {
       0% {
-        transform: translateY(0) scale(1);
+        transform: translateY(-20px) scale(1);
         opacity: 1;
       }
       100% {
-        transform: translateY(110vh) scale(0.5);
+        transform: translateY(100vh) scale(0.5);
         opacity: 0;
       }
     }
+
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="letter-container" id="letter" aria-label="Carta interativa" tabindex="0">
-      <div class="letter-inner">
-        <div class="letter-front" aria-hidden="false" role="img" aria-label="Capa da carta">
-          Clique para abrir 💌
-          <img src="9e868fe5fe7e8cb622b6a1ac23733f7d.jpg" alt="Imagem decorativa da carta" />
-        </div>
-        <div class="letter-back" aria-hidden="true">
-          <p>Seus olhos são como constelações, guiando meu coração na escuridão.</p>
-          <p>No silêncio do universo, seu olhar é o som mais bonito.</p>
-          <p>Você é o céu onde minha alma encontra paz.</p>
-          <p>Entre estrelas e planetas, nenhum brilha como você.</p>
-          <p>Te olhar é como viajar pelas galáxias — mágico e infinito.</p>
-          <p>Com você, tudo é mais bonito, mais leve, mais eterno.</p>
-          <p>Meu amor por você é tão vasto quanto o próprio universo. ✨</p>
-          <p>Eu te amo cachinhos 🫶🏻❤️</p>
-          <button class="close-btn" id="closeBtn" aria-label="Fechar carta">Fechar</button>
-        </div>
+
+  <div class="letter-container" id="letter">
+    <div class="letter-inner">
+      <div class="letter-front">
+        Clique para abrir 💌
+        <img src="9e868fe5fe7e8cb622b6a1ac23733f7d.jpg" alt="Imagem linda" draggable="false" />
+      </div>
+      <div class="letter-back">
+        <p>Seus olhos são como constelações, guiando meu coração na escuridão.</p>
+        <p>No silêncio do universo, seu olhar é o som mais bonito.</p>
+        <p>Você é o céu onde minha alma encontra paz.</p>
+        <p>Entre estrelas e planetas, nenhum brilha como você.</p>
+        <p>Te olhar é como viajar pelas galáxias — mágico e infinito.</p>
+        <p>Com você, tudo é mais bonito, mais leve, mais eterno.</p>
+        <p>Meu amor por você é tão vasto quanto o próprio universo. ✨</p>
+        <p>Eu te amo cachinhos 🫶🏻❤️</p>
+        <button class="close-btn" id="closeBtn">Fechar</button>
       </div>
     </div>
   </div>
 
-  <audio id="sound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_b6a446aa7d.mp3" preload="auto"></audio>
-
   <script>
     const letter = document.getElementById("letter");
     const closeBtn = document.getElementById("closeBtn");
-    const sound = document.getElementById("sound");
 
-    let starsInterval;
-    let starsTimeout;
-
-    letter.addEventListener("click", () => {
-      if (!letter.classList.contains("flipped")) {
-        letter.classList.add("flipped");
-        sound.currentTime = 0;
-        sound.play();
-        startFallingStars();
-
-        // Mostrar texto da parte de trás (acessibilidade)
-        letter.querySelector('.letter-front').setAttribute('aria-hidden', 'true');
-        letter.querySelector('.letter-back').setAttribute('aria-hidden', 'false');
-
-        // Remover estrelas após 5 segundos
-        starsTimeout = setTimeout(() => {
-          stopFallingStars();
-          // Limpar estrelas restantes
-          document.querySelectorAll('.falling-star').forEach(star => star.remove());
-        }, 5000);
-      }
-    });
-
-    closeBtn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      letter.classList.remove("flipped");
-
-      // Esconder texto da parte de trás (acessibilidade)
-      letter.querySelector('.letter-front').setAttribute('aria-hidden', 'false');
-      letter.querySelector('.letter-back').setAttribute('aria-hidden', 'true');
-
-      stopFallingStars();
-      clearTimeout(starsTimeout);
-      document.querySelectorAll('.falling-star').forEach(star => star.remove());
-    });
+    let starsInterval = null;
+    let starsTimeout = null;
 
     function createFallingStar() {
       const star = document.createElement("div");
       star.classList.add("falling-star");
-
-      const colors = ['color-pink', 'color-blue', 'color-red'];
-      star.classList.add(colors[Math.floor(Math.random() * colors.length)]);
-
-      star.style.left = `${Math.random() * 100}vw`;
-      star.style.top = `-10px`;
+      const colors = ['#ff66cc', '#66ccff', '#ff3333'];
+      star.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+      star.style.left = `${Math.random() * window.innerWidth}px`;
+      star.style.top = `-20px`;
       document.body.appendChild(star);
+
+      star.style.animationDuration = (3 + Math.random() * 2) + 's';
 
       star.addEventListener('animationend', () => {
         star.remove();
       });
     }
 
-    function startFallingStars() {
-      createFallingStar();
+    function startStars() {
+      if (starsInterval) return;
       starsInterval = setInterval(createFallingStar, 150);
+      starsTimeout = setTimeout(() => {
+        clearInterval(starsInterval);
+        starsInterval = null;
+      }, 5000); // para criar estrelas por 5 segundos
     }
 
-    function stopFallingStars() {
-      clearInterval(starsInterval);
-    }
+    letter.addEventListener('click', () => {
+      if (!letter.classList.contains('flipped')) {
+        letter.classList.add('flipped');
+        startStars();
+      }
+    });
+
+    closeBtn.addEventListener('click', e => {
+      e.stopPropagation();
+      letter.classList.remove('flipped');
+      // Para remover as estrelas restantes se quiser
+      if (starsInterval) {
+        clearInterval(starsInterval);
+        starsInterval = null;
+      }
+      // Remove todas as estrelas pendentes
+      document.querySelectorAll('.falling-star').forEach(star => star.remove());
+      if(starsTimeout) {
+        clearTimeout(starsTimeout);
+        starsTimeout = null;
+      }
+    });
   </script>
+
 </body>
 </html>
