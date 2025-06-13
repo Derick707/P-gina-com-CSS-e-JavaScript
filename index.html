@@ -12,56 +12,24 @@
     }
 
     body {
-      height: 100vh;
+      min-height: 100vh;
       background: url('Screenshot_2025-06-12-20-03-58-170_com.miui.gallery.jpg') no-repeat center center;
       background-size: cover;
       font-family: 'Segoe UI', sans-serif;
       color: #fff;
       overflow: hidden;
+      position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    .letter-container {
+    .container {
       perspective: 1200px;
       width: 90vw;
       max-width: 380px;
       height: 500px;
       cursor: pointer;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: box-shadow 0.6s ease;
-      border-radius: 20px;
-      /* Fundo transparente para o brilho pegar bem */
-      background: transparent;
-    }
-
-    /* Brilho suave nas bordas da carta aberta, efeito contínuo */
-    .letter-container.flipped {
-      box-shadow:
-        0 0 20px 6px rgba(255, 102, 136, 0.75),
-        0 0 40px 12px rgba(255, 102, 136, 0.5),
-        inset 0 0 15px 4px rgba(255, 102, 136, 0.7);
-      animation: glowPulse 3s ease-in-out infinite;
-      cursor: default;
-    }
-
-    @keyframes glowPulse {
-      0%, 100% {
-        box-shadow:
-          0 0 20px 6px rgba(255, 102, 136, 0.75),
-          0 0 40px 12px rgba(255, 102, 136, 0.5),
-          inset 0 0 15px 4px rgba(255, 102, 136, 0.7);
-      }
-      50% {
-        box-shadow:
-          0 0 30px 9px rgba(255, 102, 136, 1),
-          0 0 50px 16px rgba(255, 102, 136, 0.7),
-          inset 0 0 25px 7px rgba(255, 102, 136, 0.9);
-      }
     }
 
     .letter-inner {
@@ -70,19 +38,12 @@
       height: 100%;
       transition: transform 1s;
       transform-style: preserve-3d;
-      border-radius: 20px;
-      background: linear-gradient(135deg, #ff6688, #ffa5d8);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
       box-shadow: 0 0 20px #ff8abf;
+      border-radius: 20px;
     }
 
     .letter-container.flipped .letter-inner {
       transform: rotateY(180deg);
-      background: #fff0f5;
-      box-shadow: 0 0 30px #ff6688;
     }
 
     .letter-front, .letter-back {
@@ -92,66 +53,47 @@
       border-radius: 20px;
       backface-visibility: hidden;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
       font-weight: bold;
-      padding: 1rem 1.5rem;
+      padding: 1rem;
       box-sizing: border-box;
       text-align: center;
-      user-select: none;
     }
 
     .letter-front {
+      background: linear-gradient(135deg, #ff6688, #ffa5d8);
       color: white;
       font-size: 1.4rem;
+      position: relative;
+      flex-direction: column;
     }
 
-    /* Animação pulse leve na imagem da capa */
     .letter-front img {
       position: absolute;
-      bottom: 15px;
-      left: 15px;
-      width: 110px;
-      height: 110px;
+      bottom: 10px;
+      right: 10px;
+      width: 100px;
+      height: 100px;
       border-radius: 15px;
       object-fit: cover;
-      box-shadow: 0 0 10px white;
-      pointer-events: none;
-      user-select: none;
-      animation: pulseImg 4s ease-in-out infinite;
-    }
-
-    @keyframes pulseImg {
-      0%, 100% {
-        transform: scale(1);
-        filter: drop-shadow(0 0 8px #fff);
-      }
-      50% {
-        transform: scale(1.05);
-        filter: drop-shadow(0 0 14px #ff6a8c);
-      }
+      box-shadow: 0 0 15px white;
     }
 
     .letter-back {
+      background: #fff0f5;
       color: #880033;
       transform: rotateY(180deg);
-      overflow-y: auto;
-      background: #fff0f5;
+      flex-direction: column;
+      padding: 2rem 1.5rem;
       font-size: 1rem;
       line-height: 1.4;
-      user-select: text;
-      cursor: default;
-    }
-
-    .letter-back p {
-      margin-bottom: 1rem;
-      color: #880033;
+      overflow-y: auto;
     }
 
     .close-btn {
-      margin-top: auto;
-      padding: 0.5rem 1rem;
+      margin-top: 1.5rem;
+      padding: 0.6rem 1.2rem;
       background: #ff6688;
       color: white;
       border: none;
@@ -160,59 +102,42 @@
       font-size: 1rem;
       box-shadow: 0 0 10px #ffb3d1;
       transition: background 0.3s;
-      user-select: none;
-      align-self: center;
-      min-width: 100px;
     }
 
     .close-btn:hover {
       background: #ff3366;
     }
 
-    /* Purpurina - partículas pequenas brilhantes */
     .glitter {
-      position: fixed;
-      width: 6px;
-      height: 6px;
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: radial-gradient(circle at center, #fff, transparent);
       border-radius: 50%;
+      filter: drop-shadow(0 0 2px #f0f);
       pointer-events: none;
       opacity: 0.8;
-      filter: drop-shadow(0 0 4px #fff);
-      animation-name: glitterTwinkle, glitterFloat;
-      animation-iteration-count: infinite;
-      animation-timing-function: ease-in-out;
-      animation-duration: 2s, 5s;
-      transition: opacity 1s ease;
+      animation: glitterFall 4s linear forwards;
     }
 
-    /* Piscando */
-    @keyframes glitterTwinkle {
-      0%, 100% { opacity: 0.8; }
-      50% { opacity: 0.2; }
+    @keyframes glitterFall {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(100vh) scale(0.3);
+        opacity: 0;
+      }
     }
-
-    /* Flutuação leve vertical */
-    @keyframes glitterFloat {
-      0%, 100% { transform: translateY(0) scale(1); }
-      50% { transform: translateY(-6px) scale(1.1); }
-    }
-
-    /* Fade out para purpurinas */
-    .fade-out {
-      opacity: 0 !important;
-      transition: opacity 1.5s ease !important;
-      animation-play-state: paused !important;
-    }
-
   </style>
 </head>
 <body>
-
-  <div class="letter-container" id="letter" title="Clique para abrir">
+  <div class="container" id="letter">
     <div class="letter-inner">
       <div class="letter-front">
         Clique para abrir 💌
-        <img src="9e868fe5fe7e8cb622b6a1ac23733f7d.jpg" alt="Imagem linda" draggable="false" />
+        <img src="9e868fe5fe7e8cb622b6a1ac23733f7d.jpg" alt="Imagem linda" />
       </div>
       <div class="letter-back">
         <p>Seus olhos são como constelações, guiando meu coração na escuridão.</p>
@@ -228,73 +153,71 @@
     </div>
   </div>
 
-  <!-- Sons suaves -->
-  <audio id="openSound" src="https://actions.google.com/sounds/v1/alarms/smooth_bell.ogg" preload="auto"></audio>
-  <audio id="closeSound" src="https://actions.google.com/sounds/v1/alarms/soft_bell.ogg" preload="auto"></audio>
+  <audio id="openSound" src="https://actions.google.com/sounds/v1/cartoon/pop.ogg" preload="auto"></audio>
+  <audio id="closeSound" src="https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg" preload="auto"></audio>
 
   <script>
-    const letter = document.getElementById("letter");
-    const closeBtn = document.getElementById("closeBtn");
-    const openSound = document.getElementById("openSound");
-    const closeSound = document.getElementById("closeSound");
+    const letter = document.getElementById('letter');
+    const closeBtn = document.getElementById('closeBtn');
+    const openSound = document.getElementById('openSound');
+    const closeSound = document.getElementById('closeSound');
 
-    let glitterInterval = null;
-    let glitterTimeout = null;
+    // Forçar carregamento do áudio
+    openSound.load();
+    closeSound.load();
 
-    // Cria uma partícula de purpurina
+    let glitterInterval;
+    let glitterTimeout;
+    let activeGlitters = [];
+
     function createGlitter() {
-      const glitter = document.createElement("div");
-      glitter.classList.add("glitter");
+      const glitter = document.createElement('div');
+      glitter.classList.add('glitter');
 
-      // Cores em tons rosados/lilas/branco
-      const colors = ['#ff66cc', '#cc99ff', '#ff99cc', '#f8f8ff', '#d8b7ff'];
-      glitter.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+      // Cores variadas tipo purpurina
+      const colors = ['#ff66cc', '#66ccff', '#ff3333', '#ff99ff', '#cc66ff'];
+      glitter.style.background = `radial-gradient(circle at center, ${colors[Math.floor(Math.random() * colors.length)]}, transparent)`;
 
-      // Posição aleatória na tela (top 40% da janela)
       glitter.style.left = `${Math.random() * window.innerWidth}px`;
-      glitter.style.top = `${Math.random() * window.innerHeight * 0.4}px`;
-
-      // Duração e atraso de animação aleatórios para variar os piscas
-      glitter.style.animationDuration = `${1 + Math.random() * 2}s, ${4 + Math.random() * 3}s`;
-      glitter.style.animationDelay = `${Math.random() * 2}s, ${Math.random() * 5}s`;
+      glitter.style.top = `-10px`;
 
       document.body.appendChild(glitter);
+      activeGlitters.push(glitter);
 
-      // Remove após 5 segundos
+      glitter.style.animation = 'glitterFall 4s linear forwards';
+
+      // Remove glitter após animação
       setTimeout(() => {
-        // Se não estiver fade out, remove
-        if (!glitter.classList.contains('fade-out')) {
-          glitter.remove();
-        }
-      }, 5000);
+        glitter.remove();
+        activeGlitters = activeGlitters.filter(g => g !== glitter);
+      }, 4000);
     }
 
     function startGlitter() {
-      if (glitterInterval) return;
-      glitterInterval = setInterval(createGlitter, 100);
+      glitterInterval = setInterval(createGlitter, 150);
+      // Para garantir que as purpurinas somem ao fechar, limpamos após 5s só se não fechar
       glitterTimeout = setTimeout(() => {
         clearInterval(glitterInterval);
         glitterInterval = null;
       }, 5000);
     }
 
-    // Ao fechar, purpurinas entram em fade e somem depois
     function fadeOutGlitters() {
-      const glitters = document.querySelectorAll('.glitter');
-      glitters.forEach((g, i) => {
-        // Com delay pra não sumirem todas instantâneo
+      activeGlitters.forEach(glitter => {
+        glitter.style.transition = 'opacity 1.5s';
+        glitter.style.opacity = '0';
         setTimeout(() => {
-          g.classList.add('fade-out');
-          setTimeout(() => g.remove(), 1600);
-        }, i * 70);
+          glitter.remove();
+        }, 1500);
       });
+      activeGlitters = [];
     }
 
     letter.addEventListener('click', () => {
       if (!letter.classList.contains('flipped')) {
         letter.classList.add('flipped');
         openSound.currentTime = 0;
-        openSound.play();
+        openSound.play().catch(e => console.log('Erro ao tocar openSound:', e));
         startGlitter();
       }
     });
@@ -303,20 +226,20 @@
       e.stopPropagation();
       if (letter.classList.contains('flipped')) {
         closeSound.currentTime = 0;
-        closeSound.play();
+        closeSound.play().catch(e => console.log('Erro ao tocar closeSound:', e));
         letter.classList.remove('flipped');
+
         if (glitterInterval) {
           clearInterval(glitterInterval);
           glitterInterval = null;
         }
-        fadeOutGlitters();
-        if(glitterTimeout) {
+        if (glitterTimeout) {
           clearTimeout(glitterTimeout);
           glitterTimeout = null;
         }
+        fadeOutGlitters();
       }
     });
   </script>
-
 </body>
 </html>
