@@ -12,17 +12,15 @@
     }
 
     body {
-      min-height: 100vh;
+      height: 100vh;
       background: url('Screenshot_2025-06-12-20-03-58-170_com.miui.gallery.jpg') no-repeat center center;
       background-size: cover;
       font-family: 'Segoe UI', sans-serif;
       color: #fff;
       overflow: hidden;
-      position: relative;
       display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
+      align-items: center;   /* centraliza verticalmente */
+      justify-content: center; /* centraliza horizontalmente */
     }
 
     .letter-container {
@@ -32,6 +30,9 @@
       height: 500px;
       cursor: pointer;
       position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .letter-inner {
@@ -43,6 +44,10 @@
       box-shadow: 0 0 20px #ff8abf;
       border-radius: 20px;
       background: linear-gradient(135deg, #ff6688, #ffa5d8);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
 
     .letter-container.flipped .letter-inner {
@@ -58,22 +63,19 @@
       border-radius: 20px;
       backface-visibility: hidden;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       font-weight: bold;
-      padding: 1rem;
+      padding: 1rem 1.5rem;
       box-sizing: border-box;
+      text-align: center;
     }
 
     .letter-front {
       color: white;
       font-size: 1.4rem;
-      text-align: center;
-      position: relative;
-      flex-direction: column;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      user-select: none;
     }
 
     .letter-front img {
@@ -85,20 +87,17 @@
       border-radius: 15px;
       object-fit: cover;
       box-shadow: 0 0 10px white;
-      user-select: none;
       pointer-events: none;
+      user-select: none;
     }
 
     .letter-back {
       color: #880033;
       transform: rotateY(180deg);
-      flex-direction: column;
-      font-size: 1rem;
-      line-height: 1.4;
-      text-align: center;
       overflow-y: auto;
       background: #fff0f5;
-      padding: 2rem 1.5rem 1.5rem 1.5rem;
+      font-size: 1rem;
+      line-height: 1.4;
       user-select: text;
     }
 
@@ -108,7 +107,7 @@
     }
 
     .close-btn {
-      margin-top: 1rem;
+      margin-top: auto;
       padding: 0.5rem 1rem;
       background: #ff6688;
       color: white;
@@ -119,6 +118,8 @@
       box-shadow: 0 0 10px #ffb3d1;
       transition: background 0.3s;
       user-select: none;
+      align-self: center;
+      min-width: 100px;
     }
 
     .close-btn:hover {
@@ -147,12 +148,11 @@
         opacity: 0;
       }
     }
-
   </style>
 </head>
 <body>
 
-  <div class="letter-container" id="letter">
+  <div class="letter-container" id="letter" title="Clique para abrir">
     <div class="letter-inner">
       <div class="letter-front">
         Clique para abrir 💌
@@ -201,7 +201,7 @@
       starsTimeout = setTimeout(() => {
         clearInterval(starsInterval);
         starsInterval = null;
-      }, 5000); // para criar estrelas por 5 segundos
+      }, 5000); // 5 segundos de estrelas caindo
     }
 
     letter.addEventListener('click', () => {
@@ -214,12 +214,10 @@
     closeBtn.addEventListener('click', e => {
       e.stopPropagation();
       letter.classList.remove('flipped');
-      // Para remover as estrelas restantes se quiser
       if (starsInterval) {
         clearInterval(starsInterval);
         starsInterval = null;
       }
-      // Remove todas as estrelas pendentes
       document.querySelectorAll('.falling-star').forEach(star => star.remove());
       if(starsTimeout) {
         clearTimeout(starsTimeout);
@@ -230,3 +228,4 @@
 
 </body>
 </html>
+
