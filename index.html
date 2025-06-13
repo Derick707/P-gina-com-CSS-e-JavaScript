@@ -41,7 +41,8 @@
       transition: background 0.5s ease;
       will-change: transform;
       position: relative;
-      z-index: 10; /* garantir na frente */
+      z-index: 10;
+      user-select: none;
     }
 
     .letter-inner {
@@ -73,7 +74,8 @@
       justify-content: center;
       font-weight: bold;
       padding: 1rem;
-      user-select: none;
+      user-select: text;
+      overflow-y: auto;
     }
 
     .letter-front {
@@ -81,7 +83,6 @@
       font-size: 1.4rem;
       text-align: center;
       position: relative;
-      overflow: visible;
     }
 
     .letter-front img {
@@ -95,6 +96,7 @@
       box-shadow: 0 0 15px white;
       border: 3px solid #fff0f5;
       transition: transform 0.3s ease;
+      pointer-events: none; /* para não atrapalhar cliques na carta */
     }
     .letter-front:hover img {
       transform: scale(1.05);
@@ -108,10 +110,9 @@
       font-size: 1rem;
       line-height: 1.5;
       text-align: center;
-      overflow-y: auto;
       background: #fff0f5;
       box-shadow: inset 0 0 20px #ff66cc44;
-      z-index: 20; /* garantir texto na frente */
+      z-index: 20;
       position: relative;
     }
 
@@ -127,7 +128,7 @@
       box-shadow: 0 0 15px #ffb3d1;
       transition: background 0.3s ease;
       user-select: none;
-      z-index: 20;
+      z-index: 25;
       position: relative;
     }
 
@@ -136,18 +137,17 @@
     }
 
     .falling-star {
-      position: fixed; /* para ficar sobre tudo e não atrapalhar */
+      position: fixed;
       width: 8px;
       height: 8px;
       border-radius: 50%;
       opacity: 0.9;
       filter: drop-shadow(0 0 2px #fff);
       animation: fall 3s linear forwards;
-      pointer-events: none; /* deixa passar cliques */
-      z-index: 5; /* atrás da carta */
+      pointer-events: none;
+      z-index: 5;
     }
 
-    /* Cores das estrelas */
     .color-pink {
       background-color: #ff66cc;
       box-shadow: 0 0 8px #ff66ccaa;
@@ -171,7 +171,6 @@
         opacity: 0;
       }
     }
-
   </style>
 </head>
 <body>
@@ -214,6 +213,10 @@
         sound.play();
         startFallingStars();
 
+        // Mostrar texto da parte de trás (acessibilidade)
+        letter.querySelector('.letter-front').setAttribute('aria-hidden', 'true');
+        letter.querySelector('.letter-back').setAttribute('aria-hidden', 'false');
+
         // Remover estrelas após 5 segundos
         starsTimeout = setTimeout(() => {
           stopFallingStars();
@@ -226,6 +229,11 @@
     closeBtn.addEventListener("click", (e) => {
       e.stopPropagation();
       letter.classList.remove("flipped");
+
+      // Esconder texto da parte de trás (acessibilidade)
+      letter.querySelector('.letter-front').setAttribute('aria-hidden', 'false');
+      letter.querySelector('.letter-back').setAttribute('aria-hidden', 'true');
+
       stopFallingStars();
       clearTimeout(starsTimeout);
       document.querySelectorAll('.falling-star').forEach(star => star.remove());
